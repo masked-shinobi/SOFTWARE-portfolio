@@ -1,0 +1,99 @@
+================================================================================
+  PORTFOLIO PLATFORM — AI SESSION REMINDER
+  Read this FULLY before doing ANY work.
+================================================================================
+
+PROJECT: Interactive Dual/Triple-Experience Portfolio Platform
+REPO:    d:\SEMESTER - 7\PORTFOLIO SOFTWARE
+BRANCH:  Always work on `dev`. NEVER push directly to `main`.
+
+
+--- BEFORE YOU WRITE A SINGLE LINE OF CODE, DO THIS ---
+
+1. READ the tracker files in this order:
+   - tracker/MASTER_PROGRESS.md   → see what phase/stage we're in
+   - tracker/DAILY_LOG.md         → read the LAST entry, especially "Next Session Plan"
+   - tracker/DECISIONS.md         → know what decisions were already made (don't re-decide)
+   - Open the relevant version tracker (whichever version is active):
+       v1.0 → tracker/v1_BACKEND.md
+       v2.0 → tracker/v2_FRONTEND_DEVELOPER.md
+       v3.0 → tracker/v3_FRONTEND_CREATIVE.md
+
+2. IDENTIFY the current stage and its unchecked tasks. Work ONLY on those.
+   Do NOT jump ahead to future stages. Do NOT skip dependencies.
+
+3. CHECK the git branch. You must be on `dev`. Confirm with `git branch`.
+
+
+--- PROJECT STRUCTURE ---
+
+3 Major Versions (sequential, not parallel):
+  v1.0 = Backend (Supabase schema, RLS, auth, data layer, Next.js scaffold, entry page)
+  v2.0 = Frontend Developer Style (scroll-based, code-controlled, theming, cursor, resume)
+  v3.0 = Frontend Creative Style (canvas engine, creative blocks, admin editor)
+
+Post-v3 Future Scope:
+  Story Experience (Three.js), Mobile, Docker local dev, Deployment polish
+
+
+--- RULES ---
+
+1. BRANCHING:
+   - All work on `dev` branch
+   - `main` only receives merges when an ENTIRE major version is done
+   - Tag merges: v1.0, v2.0, v3.0
+
+2. TRACKER UPDATES (mandatory after every session):
+   - Check off completed tasks in the version tracker file (change [ ] to [x])
+   - Update stage status emoji (🔴→🟡→🟢) in MASTER_PROGRESS.md
+   - Add a new daily log entry in DAILY_LOG.md with:
+       Work Done, Decisions Made, Blockers, Next Session Plan
+   - Log any new decisions in DECISIONS.md with context + rationale
+
+3. COMMITS:
+   - Commit after meaningful chunks of work, not at the very end
+   - Use descriptive commit messages
+
+4. TECH STACK (don't change without discussion):
+   - Frontend: Next.js (App Router), React, TypeScript, Tailwind CSS, Motion
+   - Backend: Supabase (hosted free tier — NOT Docker, Docker is Phase F)
+   - Theming: next-themes, per-experience CSS tokens
+   - Deployment: Vercel (later)
+
+5. ARCHITECTURE (don't violate):
+   - Shared backend, independent frontend experiences
+   - Developer and Creative are separate worlds, not the same template recolored
+   - Each experience has its OWN color tokens, layout, cursor config
+   - Developer = code-controlled, NOT admin-editable
+   - Creative = admin-editable via custom Figma-style editor
+   - Plain content editing = Supabase Studio (no custom admin UI for that)
+   - Adaptive Resume lives INSIDE Developer at /developer/resume
+   - RLS is the real security boundary, not the /admin route
+
+
+--- QUICK REFERENCE: WHAT TO SAY WHEN STARTING ---
+
+"I've read the tracker. We are currently on [version], [stage].
+The next tasks are: [list unchecked items from the version tracker].
+I'll work on these now."
+
+Then proceed.
+
+
+--- FILE MAP ---
+
+Plan/                              → Original architecture + stage plan docs (READ ONLY)
+tracker/
+  README.md                        → Versioning strategy, branching model, doc index
+  MASTER_PROGRESS.md               → Bird's-eye status of ALL phases/stages
+  v1_BACKEND.md                    → Detailed tasks for v1.0
+  v2_FRONTEND_DEVELOPER.md         → Detailed tasks for v2.0
+  v3_FRONTEND_CREATIVE.md          → Detailed tasks for v3.0
+  DAILY_LOG.md                     → Day-by-day work log
+  DECISIONS.md                     → Architecture decision record (numbered DEC-XXX)
+  TECH_STACK.md                    → Confirmed stack + installed versions
+  REMINDER.txt                     → This file
+
+================================================================================
+  DO NOT START CODING UNTIL YOU HAVE READ THE TRACKER FILES.
+================================================================================

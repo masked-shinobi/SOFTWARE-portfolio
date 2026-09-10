@@ -51,6 +51,7 @@ main ← only receives merges when a major version is COMPLETE and verified
 | [`DAILY_LOG.md`](./DAILY_LOG.md) | Day-by-day work log with notes, decisions, blockers |
 | [`DECISIONS.md`](./DECISIONS.md) | Architecture & design decisions record |
 | [`TECH_STACK.md`](./TECH_STACK.md) | Confirmed tech stack and dependency versions |
+| [`REMINDER.txt`](./REMINDER.txt) | AI session context & instructions before touching code |
 
 ---
 
