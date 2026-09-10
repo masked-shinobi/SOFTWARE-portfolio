@@ -1,0 +1,149 @@
+PORTFOLIO PLATFORM — STAGE PLAN
+Backend first, then frontend, scaling up gradually from scratch. Each stage lists its track (Backend, Frontend, or Both), its goal, its key tasks, what it depends on, and notes.
+
+
+PHASE A — BACKEND FOUNDATION
+Build and prove this before any UI exists.
+
+A1. Local dev environment (Backend)
+Goal: get Supabase running locally via Docker so dev matches production from day one.
+Tasks: install Docker, write docker-compose.yml for local Supabase covering Postgres, Auth, and Storage, confirm Supabase Studio loads locally, create the GitHub repo.
+Depends on: nothing, this is the first thing you touch.
+Note: no Next.js yet at this stage.
+
+A2. Core schema design (Backend)
+Goal: design and create the minimal tables the whole platform depends on.
+Tasks: profile table, projects table, skills table kept minimal and optional, media table, write the schema as SQL migration files rather than clicking it in manually.
+Depends on: A1.
+Note: keep it small, add creative_blocks and resume_sections later, not now.
+
+A3. Row Level Security (Backend)
+Goal: lock down the database before any frontend can touch it.
+Tasks: enable RLS on every table, public policy is SELECT only on published rows, confirm the anon key cannot insert, update, or delete via a Studio SQL test.
+Depends on: A2.
+Note: do this before writing frontend fetch code, so you build against real constraints.
+
+A4. Auth setup (Backend)
+Goal: set up the one admin account that will manage content later.
+Tasks: enable Supabase Auth with email and password, create your own admin user, write an admin-only RLS policy checked against auth.uid().
+Depends on: A3.
+Note: no admin UI needed yet, just prove the policy works via Studio.
+
+A5. Seed data (Backend)
+Goal: put real or realistic placeholder content into the database so the frontend has something true to render.
+Tasks: add two or three real projects, write real bio content, upload a couple of real images to Storage, confirm they load via a public Storage URL.
+Depends on: A2, A3.
+Note: use real content where possible, placeholder lorem ipsum makes later frontend decisions harder, not easier.
+
+A6. Data access layer (Backend)
+Goal: write the shared functions every frontend experience will call, before any frontend exists.
+Tasks: set up the Supabase client and server, write typed fetch functions such as getProfile, getProjects, getMedia, generate TypeScript types from the Supabase schema.
+Depends on: A5.
+Note: this is the seam between backend and frontend, get it right once, both experiences reuse it.
+
+
+PHASE B — FRONTEND FOUNDATION
+Scaffold the app and prove the data connects.
+
+B1. Next.js scaffold (Frontend)
+Goal: stand up the app shell and routing skeleton, no visual design yet.
+Tasks: create the Next.js, TypeScript, and Tailwind project, set up the app folder structure with developer, creative, story, and admin placeholders, connect environment variables to local Supabase.
+Depends on: A6.
+Note: every route can just show its own name on a blank page at this point.
+
+B2. Prove the data connection (Frontend)
+Goal: confirm the frontend can actually read what Backend Phase A produced.
+Tasks: call getProjects on a plain page, render seeded project titles as plain text, confirm RLS blocks writes from the client.
+Depends on: B1.
+Note: this is a checkpoint, not a feature, once real data renders anywhere, Phase A is proven end to end.
+
+B3. Boot loader and Entry page (Frontend)
+Goal: build the first thing a visitor actually sees.
+Tasks: boot or loading animation, Entry or Choice page UI, links to /developer, /creative, /story, with story allowed to gracefully 404 for now.
+Depends on: B2.
+Note: keep the animation simple at first, polish later once the rest works.
+
+
+PHASE C — DEVELOPER EXPERIENCE
+
+C1. Developer layout and theme (Frontend)
+Goal: establish Developer's visual identity before filling it with content.
+Tasks: Developer-specific layout, dark and light CSS token pair for Developer, next-themes wired up, custom cursor component with Developer config.
+Depends on: B3.
+Note: prove theming and cursor on one experience before copying the pattern to Creative.
+
+C2. Developer sections (Frontend)
+Goal: build the real scroll-based content, reading from the data access layer.
+Tasks: hero, projects rendered as technical cards from real project data, skills, case studies, smooth scroll and micro-interactions.
+Depends on: C1.
+Note: structure is code-controlled, not admin-editable, by design.
+
+C3. Adaptive interactive resume (Frontend)
+Goal: build the resume as a mode inside Developer.
+Tasks: /developer/resume route, resume_sections table added back in Backend if needed, simple visibility toggle logic such as recruiter view versus full view.
+Depends on: C2.
+Note: start with static toggled sections, don't build a rules engine yet.
+
+
+PHASE D — CREATIVE EXPERIENCE
+
+D1. Creative schema (Backend)
+Goal: add the spatial data model the canvas needs.
+Tasks: creative_blocks table with type, content reference, x, y, width, height, rotation, z-index, and visibility, RLS set to public SELECT and admin CRUD.
+Depends on: A6.
+Note: do this small backend addition right before you need it, not back in Phase A.
+
+D2. Canvas engine (Frontend)
+Goal: build the pan, zoom, and drag mechanics with placeholder blocks.
+Tasks: base canvas component, pan, zoom, and drag interactions, render placeholder rectangles at fixed positions first.
+Depends on: B3.
+Note: prove the interaction model before it needs to read real data.
+
+D3. Creative theme, cursor, and real blocks (Frontend)
+Goal: connect the canvas to real data and give Creative its own identity.
+Tasks: Creative dark and light tokens, custom cursor Creative config with magnetic hover, fetch real creative_blocks and render as positioned objects, block type renderers for text, image, project, and gallery.
+Depends on: D1, D2.
+Note: this is where Creative starts to feel like its own world, distinct from Developer.
+
+
+PHASE E — ADMIN
+
+E1. Admin auth gate (Backend)
+Goal: lock the /admin route behind real authentication.
+Tasks: Supabase Auth session check in middleware, redirect unauthenticated visitors, confirm the hidden route is not the actual security boundary.
+Depends on: A4, B1.
+Note: content editing itself, meaning bio, projects, and images, happens directly in Supabase Studio, no custom UI needed for that.
+
+E2. Creative canvas editor (Frontend)
+Goal: build the one custom admin surface that's actually needed, the Figma-style editor.
+Tasks: layers panel, properties panel with x, y, width, height, rotation, visibility, add, delete, and duplicate block, drag to move, drag to resize, save to creative_blocks.
+Depends on: D3, E1.
+Note: this is the only piece Supabase Studio can't give you, since spatial data isn't meaningfully editable in a table.
+
+E3. Preview and publish, optional (Frontend)
+Goal: decide if draft versus published state is worth it for a personal site.
+Tasks: add a draft boolean to creative_blocks if useful, preview toggle in the editor, publish action.
+Depends on: E2.
+Note: skip this stage entirely if direct-save is good enough for your use case.
+
+
+PHASE F — STORY, MOBILE, AND DEPLOYMENT
+Later, once the core product works.
+
+F1. Story experience (Both)
+Goal: build the third experience, now that the pattern is proven twice already.
+Tasks: Three.js and React Three Fiber scene, scroll-driven camera movement, narrative content structure written out separately when you reach this stage.
+Depends on: C2, D3.
+Note: deliberately last among the three experiences, since it's the highest risk and most novel tech.
+
+F2. Mobile experiences (Frontend)
+Goal: give Developer and Creative dedicated mobile renderers.
+Tasks: mobile Developer layout that is not a shrink of desktop, touch-first Creative canvas with pinch-zoom, tap, and double-tap focus, disable the custom cursor on touch.
+Depends on: C2, D3.
+Note: same backend, same data access layer, only the rendering logic is new.
+
+F3. Deployment polish (Both)
+Goal: finalize the path from local Docker dev to production.
+Tasks: set up the Vercel project with env vars pointing at hosted Supabase, confirm RLS policies match production expectations, write final Docker Compose docs for future local setup.
+Depends on: all of Phase A, and all frontend stages.
+Note: Docker stays a local dev tool throughout, Vercel builds from source, not from the Docker image.

@@ -1,0 +1,209 @@
+INTERACTIVE DUAL/TRIPLE-EXPERIENCE PORTFOLIO PLATFORM
+MASTER ARCHITECTURE AND BUILD PLAN
+
+Core principle for the whole project: shared backend, independent frontend experiences. Not one giant frontend that conditionally changes everything.
+
+
+1. CONCEPT OVERVIEW
+
+The site is not a conventional single-page portfolio. It is an Entry Point that leads into multiple independently designed experiences, all reading from one centralized data source.
+
+My Portfolio leads to three branches: Developer, Creative, and Story.
+
+Developer: conventional-ish scroll UI, but visually distinct. Structure controlled entirely in code, not admin-editable. Reads content from the backend.
+
+Creative: Figma-inspired spatial canvas. Pan, zoom, and drag exploration of positioned blocks. Fully admin-editable, including position, size, layers, and content.
+
+Story: future immersive Three.js and React Three Fiber narrative experience. The route exists from day one as a placeholder, nothing built yet.
+
+Adaptive Interactive Resume: not a fourth top-level experience. It is a mode or section inside the Developer experience, for example a resume panel or /developer/resume route, that adapts based on viewer context such as recruiter view versus deep-dive view. Decided to keep it scoped inside Developer rather than adding a fourth architectural branch, since it shares Developer's structured, technical identity and doesn't need its own routing subsystem.
+
+
+2. WHAT CHANGED FROM THE ORIGINAL BRIEF
+
+Mobile version: confirmed as a later phase, separate rendering logic per experience, not a shrunk desktop layout.
+
+Story mode with Three.js: confirmed as a later phase, placeholder route exists from stage one.
+
+Adaptive interactive resume: new addition, lives inside the Developer experience, not a separate top-level route.
+
+Dockerize: local dev parity only. Vercel remains the deployment target, Docker is not the production runtime.
+
+Dark and light theme: new addition, CSS variable tokens plus next-themes, scoped per experience.
+
+Animated custom cursor: new addition, one reusable component with different visual configuration per experience.
+
+Admin scope: reduced, see section 6.
+
+
+3. EXPERIENCE DESIGN LANGUAGE
+
+Developer: technical, structured, precise. Navigation is vertical scroll. Not editable via admin, code-controlled. Cursor is small and precise, like a dot or crosshair. Own dark and light theme tokens.
+
+Creative: visual, spatial, expressive. Navigation is pan, zoom, and drag canvas. Fully editable via the custom admin editor. Cursor is larger and magnetic to blocks. Own dark and light theme tokens.
+
+Story: immersive, emotional, narrative. Navigation is camera-driven and scroll-triggered 3D. Not editable yet, future work. Cursor and theme to be decided later.
+
+Each experience defines its own color tokens rather than sharing one global theme. They should feel like separate worlds unified by the same person, not the same template recolored.
+
+
+4. DATA VS RENDERING
+
+This is the core architectural rule. Content lives once in Supabase. Each experience renders it differently.
+
+Example: a projects row has title, description, images, links, technologies, and metadata. The Developer renderer displays it as a structured technical project card in a grid. The Creative renderer displays the same row as a positioned, draggable canvas object, using separately stored x, y, width, height, rotation, and layer values.
+
+Same data, two different renderers, two different experiences.
+
+
+5. CENTRALIZED BACKEND, SUPABASE
+
+Supabase manages three broad areas: content, assets, and layout.
+
+Content includes projects, bio, and skills.
+Assets includes images, videos, and media.
+Layout includes creative blocks and their positions.
+
+Rough schema sketch, to be designed incrementally rather than over-built up front:
+
+profile: bio, headline, social links, resume metadata.
+projects: title, description, tech stack, links, images, featured flag.
+skills: name, category, proficiency, kept minimal.
+creative_blocks: type such as text, image, project, gallery, video, 3d, or custom, plus content reference, x, y, width, height, rotation, z-index, visibility, and canvas page.
+media: Supabase Storage references, alt text, type.
+resume_sections, for the adaptive resume mode: section type, content, and visibility rules such as showing something only in recruiter mode.
+
+Row Level Security: the public role gets SELECT only on published content. The admin role gets full CRUD, gated by Supabase Auth and RLS policies checked against auth.uid().
+
+
+6. ADMIN, SIMPLIFIED
+
+The original plan proposed a full custom backend-edit admin UI for bio, projects, and images, alongside a custom frontend-edit editor for Creative. That duplicates what Supabase already provides.
+
+Simplified approach:
+
+Plain content such as bio, project text, skills, links, and image uploads is managed directly in Supabase Studio. It already has a full table editor and storage browser. Building a custom UI to edit rows that Supabase already exposes is wasted effort.
+
+Creative canvas layout, meaning position, size, rotation, layering, and visibility of blocks, is the one thing that genuinely needs a custom admin, because spatial data isn't meaningfully editable in a table view. Build the Figma-inspired editor described in the original brief for this and only this.
+
+The Developer page and the adaptive resume mode remain code-controlled, never admin-editable, as originally specified.
+
+This removes roughly a third of the originally scoped admin work and gets to a working product faster.
+
+Access model, unchanged from the original brief: the public frontend is read-only against Supabase. The admin, meaning the custom Creative editor plus Supabase Studio, has authenticated read and write access. The hidden /admin route is a UX convenience, not a security boundary. Real security is Supabase Auth plus Row Level Security.
+
+
+7. THEMING, DARK AND LIGHT
+
+CSS custom properties define color tokens per experience, for example dev-bg, dev-accent, creative-bg, scoped at each experience's root layout.
+
+next-themes handles persistence, system preference detection, and the toggle itself.
+
+Each experience's light and dark pair is designed independently rather than one global palette applied everywhere, which keeps Developer and Creative visually distinct in both modes.
+
+
+8. CUSTOM ANIMATED CURSOR
+
+One reusable CustomCursor component tracks pointer position via pointermove and animates with Motion, using transform-only movement for GPU-friendly performance with no layout thrashing.
+
+It is mounted per experience layout, not globally, with a config prop controlling size, shape, and behavior. For example, Developer uses a small precise dot or crosshair, while Creative uses a larger cursor that can magnetize toward canvas blocks on hover.
+
+It is disabled automatically on touch devices during the mobile phase.
+
+
+9. PROPOSED STACK
+
+Frontend: Next.js using the App Router, React, TypeScript, Tailwind CSS, Motion.
+
+Backend: Supabase, meaning PostgreSQL, Storage, Auth, and Row Level Security.
+
+Future 3D: Three.js, React Three Fiber.
+
+Local dev: Docker Compose running Supabase locally, meaning Postgres, Auth, and Storage emulated, for dev and prod parity.
+
+Deployment: Vercel, which builds from source. Docker is not involved in the deployed runtime.
+
+Source control: GitHub.
+
+Why Next.js specifically fits this project: file-based routing cleanly isolates the developer, creative, story, and admin route trees. Server Components suit Developer's read-only, SEO-relevant content, giving fast loads with no client waterfall. Middleware handles admin auth gating at the routing layer.
+
+Caveat: don't force server and client discipline everywhere. Creative's canvas and Story's WebGL scene should be almost entirely client components, since SSR adds friction, not value, for drag, zoom, pan, or Three.js scenes.
+
+Why Docker here specifically: Vercel builds from source, not from a Docker image, so Docker's role is local environment parity. A docker-compose.yml runs Supabase's local stack so development matches production without touching the host machine's Postgres install. If self-hosting is considered later instead of Vercel, Docker's role would expand to production runtime, but that is out of scope for now.
+
+
+10. ROUTING STRUCTURE
+
+/ leads to the Entry or Choice Page, with a boot loader, animation, then entry.
+/developer leads to the Developer Experience.
+/developer/resume is the Adaptive Interactive Resume, a mode within Developer.
+/creative leads to the Creative Experience canvas.
+/story leads to the Story Experience, a placeholder for now.
+/admin leads to the Private Admin, auth-gated.
+/admin/creative leads to the Creative Canvas Editor, custom and Figma-style.
+
+There is no custom /admin/content route, since that is replaced by Supabase Studio.
+
+
+11. CODE ORGANIZATION
+
+app folder contains page.tsx for the Entry page, a developer folder with its layout, page, and a resume subfolder, a creative folder with its layout and page, a story folder with a placeholder page, and an admin folder with a layout for the auth gate, a page, and a creative subfolder for the canvas editor.
+
+experiences folder contains developer, creative, and story subfolders holding experience-specific components and renderers.
+
+components folder contains a cursor subfolder for the shared CustomCursor component, a theme subfolder for the theme provider and tokens, and a ui subfolder for shared primitives, used sparingly since shared UI should not be forced across experiences.
+
+lib folder contains a supabase subfolder with client, server, and types, and a data subfolder with data-fetching functions shared between renderers.
+
+Developer, Creative, and Story renderers stay decoupled. They can each import shared data-fetching functions from lib/data, but should not share layout or presentation components with each other.
+
+
+12. EXPLICIT NON-GOALS
+
+No generic portfolio template look.
+No identical scroll structure reused across all three experiences.
+No giant monolithic component.
+No hardcoded Creative content, it must come from creative_blocks.
+No admin editor for the Developer page or the adaptive resume.
+No custom admin UI for plain content, Supabase Studio handles that.
+No Three.js outside the Story experience.
+No mobile treated as a shrunk desktop.
+No building Story, mobile, or the full Creative editor before the core, meaning Developer, Creative desktop, and backend, actually works.
+
+
+13. BUILD STAGES, UPDATED
+
+One, foundation: Next.js, TypeScript, routing skeleton, Entry page, Developer page, Creative page, Story placeholder route.
+
+Two, Developer experience: full build, code-controlled, reads static or placeholder data first.
+
+Three, Creative canvas: pan, zoom, drag engine, block rendering, placeholder data first.
+
+Four, theming and cursor: dark and light tokens per experience, next-themes, custom cursor component with per-experience config.
+
+Five, Supabase integration: schema creation, Docker Compose local dev setup, connect Developer and Creative to real data.
+
+Six, auth and admin shell: Supabase Auth, RLS policies, /admin route gating.
+
+Seven, Creative visual editor: the Figma-style canvas editor, meaning layers, properties panel, drag, resize, reorder.
+
+Eight, adaptive resume mode: build within Developer, define visibility and section rules.
+
+Nine, preview and publish workflow, if useful: draft versus published state for Creative blocks.
+
+Ten, Story experience: Three.js and React Three Fiber build-out.
+
+Eleven, mobile experiences: dedicated, not shrunk, Developer and Creative mobile renderers, touch-first Creative interactions such as pinch-zoom, tap, and double-tap focus.
+
+Twelve, Docker dev-parity hardening and deployment polish: finalize local Supabase Docker setup, Vercel deployment configuration.
+
+
+14. OPEN DECISIONS, REVISIT WHEN YOU GET THERE
+
+Exact creative_blocks schema shape, finalize once actually building the canvas engine, not before.
+
+Whether the adaptive resume needs its own visibility-rule engine or can start as static toggled sections.
+
+Draft, preview, publish: worth building, or is direct-save sufficient for a personal site.
+
+Story experience's actual narrative structure, write this out separately when reaching stage ten.
