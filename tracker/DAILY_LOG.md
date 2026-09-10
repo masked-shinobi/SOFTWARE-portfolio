@@ -33,8 +33,7 @@
 
 **Work Done:**
 - Created Plan documents (architecture + stage plan)
-- Initialized Git repository
-- Created `dev` branch (all work happens here)
+- Initialized Git repository with `dev` and `main` branches
 - Set up `tracker/` folder with full tracking system:
   - `README.md` — tracker overview, versioning strategy, branching model
   - `MASTER_PROGRESS.md` — bird's-eye view of all phases
@@ -44,6 +43,11 @@
   - `DAILY_LOG.md` — this file
   - `DECISIONS.md` — architecture decision record
   - `TECH_STACK.md` — confirmed stack and versions
+  - `REMINDER.txt` — AI session context and pre-work rules
+- Connected GitHub remote (`https://github.com/masked-shinobi/SOFTWARE-portfolio.git`)
+- Pushed initial `Plan/` and `tracker/` folders to both `main` and `dev` on GitHub
+- Switched active working branch back to `dev` for day-to-day development
+- Ready to start Version 1 (v1.0 Backend) upon user confirmation
 
 **Decisions Made:**
 - 3 major versions: v1.0 (Backend), v2.0 (Developer FE), v3.0 (Creative FE)
