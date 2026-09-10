@@ -50,11 +50,12 @@
 - `main` only receives merges when a major version is fully complete
 - All daily work on `dev` branch
 - Story, Mobile, Deployment are post-v3 scope
+- **Docker deferred to Phase F** — using hosted Supabase (free tier) from the start instead of local Docker setup. Docker adds setup friction on day one with zero benefit since schema/RLS/auth work is identical on hosted vs local.
 
 **Blockers / Issues:**
 - None
 
 **Next Session Plan:**
-- Begin v1.0 Stage A1: Local dev environment (Docker + Supabase)
+- Begin v1.0 Stage A1: Supabase project setup (hosted, free tier — create project, grab keys, .env.local)
 
 ---

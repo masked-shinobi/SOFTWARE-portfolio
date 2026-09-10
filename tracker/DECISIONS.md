@@ -71,3 +71,13 @@
 **Consequences:** More CSS tokens to maintain, but stronger visual distinction between experiences. Each experience's dark/light pair is independent.
 
 ---
+
+### DEC-006: Docker Deferred to End (Phase F)
+**Date:** 2026-09-10  
+**Stage:** A1 Reorder  
+**Context:** Original Stage A1 started with Docker Compose to run Supabase locally. This adds setup friction on day one when the actual backend work (schema, RLS, auth, data layer) is identical whether Supabase is local or hosted.  
+**Decision:** Use hosted Supabase (free tier) from the start. Defer Docker local dev parity to Phase F (post-v3), alongside deployment polish.  
+**Alternatives Considered:** Docker-first as originally planned; running hosted Supabase for everything permanently.  
+**Consequences:** A1 becomes a 10-minute setup (create project, grab keys, `.env.local`) instead of a Docker debugging session. Docker gets added in Phase F when everything works and offline parity actually matters.
+
+---

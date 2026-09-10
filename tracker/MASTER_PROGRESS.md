@@ -10,7 +10,7 @@
 
 | Phase | Stage | Description | Status | Depends On |
 |---|---|---|---|---|
-| **A — Backend Foundation** | A1 | Local Dev Environment (Docker + Supabase) | 🔴 | — |
+| **A — Backend Foundation** | A1 | Supabase Project Setup (hosted, free tier) | 🔴 | — |
 | | A2 | Core Schema Design (profile, projects, skills, media) | 🔴 | A1 |
 | | A3 | Row Level Security (RLS policies) | 🔴 | A2 |
 | | A4 | Auth Setup (Admin account, admin-only RLS) | 🔴 | A3 |
@@ -57,7 +57,8 @@
 |---|---|---|---|
 | **F — Story, Mobile, Deploy** | F1 | Story Experience (Three.js, R3F) | 🔵 |
 | | F2 | Mobile Experiences (dedicated renderers) | 🔵 |
-| | F3 | Deployment Polish (Vercel config, Docker docs) | 🔵 |
+| | F3 | Docker Local Dev Parity (docker-compose for local Supabase) | 🔵 |
+| | F4 | Deployment Polish (Vercel config, final docs) | 🔵 |
 
 ---
 

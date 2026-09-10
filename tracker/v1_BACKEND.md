@@ -8,19 +8,20 @@
 
 ## Phase A — Backend Foundation
 
-### A1. Local Dev Environment 🔴
+### A1. Supabase Project Setup 🔴
 > **Track:** Backend | **Depends on:** Nothing
 
 **Tasks:**
-- [ ] Install Docker Desktop
-- [ ] Write `docker-compose.yml` for local Supabase (Postgres, Auth, Storage)
-- [ ] Confirm Supabase Studio loads locally at `localhost:54323`
-- [ ] Create `.env.local` with local Supabase credentials
+- [ ] Create hosted Supabase project (free tier)
+- [ ] Note down API URL, `anon` key, `service_role` key
+- [ ] Create `.env.local` with Supabase credentials
 - [ ] Create `.gitignore` (node_modules, .env*, .next, etc.)
+- [ ] Verify Supabase Studio is accessible via dashboard
 
 **Notes:**
+- Using hosted Supabase to start — faster than configuring Docker on day one.
+- Docker local dev parity is deferred to Phase F (post-v3 polish).
 - No Next.js at this stage — backend only.
-- Docker is for local dev parity only; Vercel is the production target.
 
 **Completed:** —  
 **Blockers:** —

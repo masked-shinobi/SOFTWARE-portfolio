@@ -31,7 +31,6 @@
 
 | Technology | Purpose |
 |---|---|
-| **Docker / Docker Compose** | Local Supabase environment (dev parity only, NOT production) |
 | **Vercel** | Production deployment (builds from source) |
 | **Git / GitHub** | Source control |
 
@@ -41,6 +40,7 @@
 
 | Technology | Purpose | When |
 |---|---|---|
+| **Docker / Docker Compose** | Local Supabase environment (dev parity, offline dev) | Phase F |
 | **Three.js** | 3D rendering for Story experience | Phase F |
 | **React Three Fiber (R3F)** | React bindings for Three.js | Phase F |
 
