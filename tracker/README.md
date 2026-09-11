@@ -1,8 +1,9 @@
 # 📋 Portfolio Platform — Project Tracker
 
-> **Last Updated:** 2026-09-10  
+> **Last Updated:** 2026-09-11  
 > **Current Major Version:** `v1.0 — Backend`  
-> **Current Branch:** `dev`
+> **Default Remote Branch:** `main`  
+> **Active Working Branch:** `dev`
 
 ---
 

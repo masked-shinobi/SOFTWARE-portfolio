@@ -66,4 +66,4 @@
 
 | Date | Version | Branch Merged | Tag | Notes |
 |---|---|---|---|---|
-| — | — | — | — | No merges yet |
+| 2026-09-11 | v1.0 (A1–A3) | `dev` → `main` | — | Mid-v1 sync: Schema, RLS policies, and project setup merged to main. Default repo branch is `main`. |

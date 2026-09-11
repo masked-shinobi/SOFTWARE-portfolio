@@ -91,6 +91,10 @@
     - Unpublished project hidden from anon → ✅ confirmed
 - Updated `v1_BACKEND.md` — A1, A2, and A3 marked 🟢
 - Updated `MASTER_PROGRESS.md` — A1, A2, and A3 marked 🟢
+- Git Sync & Branch Management:
+  - Pulled and merged `dev` branch into `main` cleanly
+  - Pushed `main` to origin
+  - Confirmed default repository branch is `main`, active development remains on `dev`
 
 **Decisions Made:**
 - Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL`
