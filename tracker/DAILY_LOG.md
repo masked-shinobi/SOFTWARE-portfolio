@@ -194,8 +194,9 @@
   - Barrel export at `src/lib/data/index.ts`
   - Created verification script (`scripts/test_data_layer.ts`) — **15/15 tests passed**
   - Installed `@supabase/ssr`, `typescript`, `tsx`
-- Updated `v1_BACKEND.md` — A6 marked 🟢
-- Updated `MASTER_PROGRESS.md` — A6 marked 🟢
+- Updated `v1_BACKEND.md` — A6 marked 🟢, Phase A marked 🟢 Complete
+- Updated `MASTER_PROGRESS.md` — A6 marked 🟢, v1.0 marked 🟡 In Progress, Merge History updated
+- Merged `dev` → `main` for Phase A completion (A1–A6)
 
 **Decisions Made:**
 - DEC-011: Hand-wrote types instead of using `supabase gen types` CLI — faster, equally accurate for 4 simple tables, avoids CLI setup before Next.js exists

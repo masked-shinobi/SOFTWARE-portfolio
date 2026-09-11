@@ -1,6 +1,6 @@
 # 🔧 v1.0 — Backend Tracker
 
-> **Status:** 🔴 Not Started  
+> **Status:** 🟡 In Progress (Phase A 🟢 Complete, Phase B 🔴 Pending)  
 > **Goal:** Build and prove the entire backend + frontend scaffold before building any experience UI.  
 > **Merge to main when:** All stages A1–B3 are 🟢 and data renders in the frontend.
 

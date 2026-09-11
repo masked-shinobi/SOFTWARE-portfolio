@@ -1,10 +1,10 @@
 # 🗺️ Master Progress — Portfolio Platform
 
-> **Last Updated:** 2026-09-11 (A6 completed)
+> **Last Updated:** 2026-09-11 (Phase A Complete — merged to main)
 
 ---
 
-## v1.0 — Backend 🔴
+## v1.0 — Backend 🟡
 
 > **Goal:** Build and prove the entire backend before any UI exists.
 
@@ -66,4 +66,5 @@
 
 | Date | Version | Branch Merged | Tag | Notes |
 |---|---|---|---|---|
+| 2026-09-11 | v1.0 (Phase A: A1–A6) | `dev` → `main` | — | Mid-v1 sync: Phase A (Backend Foundation) complete. Schema, RLS, Auth, Seed Data, and Data Access Layer merged to main. |
 | 2026-09-11 | v1.0 (A1–A3) | `dev` → `main` | — | Mid-v1 sync: Schema, RLS policies, and project setup merged to main. Default repo branch is `main`. |
