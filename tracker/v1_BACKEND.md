@@ -8,22 +8,24 @@
 
 ## Phase A — Backend Foundation
 
-### A1. Supabase Project Setup 🔴
+### A1. Supabase Project Setup 🟢
 > **Track:** Backend | **Depends on:** Nothing
 
 **Tasks:**
-- [ ] Create hosted Supabase project (free tier)
-- [ ] Note down API URL, `anon` key, `service_role` key
-- [ ] Create `.env.local` with Supabase credentials
-- [ ] Create `.gitignore` (node_modules, .env*, .next, etc.)
-- [ ] Verify Supabase Studio is accessible via dashboard
+- [x] Create hosted Supabase project (free tier)
+- [x] Note down API URL, `anon` key, `service_role` key
+- [x] Create `.env.local` with Supabase credentials
+- [x] Create `.gitignore` (node_modules, .env*, .next, etc.)
+- [x] Verify Supabase Studio is accessible via dashboard
 
 **Notes:**
 - Using hosted Supabase to start — faster than configuring Docker on day one.
 - Docker local dev parity is deferred to Phase F (post-v3 polish).
 - No Next.js at this stage — backend only.
+- Project ref: `jhrlkrkwynsucdrodxza`
+- Dashboard: https://supabase.com/dashboard/project/jhrlkrkwynsucdrodxza
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

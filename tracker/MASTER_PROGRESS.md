@@ -1,6 +1,6 @@
 # 🗺️ Master Progress — Portfolio Platform
 
-> **Last Updated:** 2026-09-10
+> **Last Updated:** 2026-09-11
 
 ---
 
@@ -10,7 +10,7 @@
 
 | Phase | Stage | Description | Status | Depends On |
 |---|---|---|---|---|
-| **A — Backend Foundation** | A1 | Supabase Project Setup (hosted, free tier) | 🔴 | — |
+| **A — Backend Foundation** | A1 | Supabase Project Setup (hosted, free tier) | 🟢 | — |
 | | A2 | Core Schema Design (profile, projects, skills, media) | 🔴 | A1 |
 | | A3 | Row Level Security (RLS policies) | 🔴 | A2 |
 | | A4 | Auth Setup (Admin account, admin-only RLS) | 🔴 | A3 |

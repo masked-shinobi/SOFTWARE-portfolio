@@ -63,3 +63,30 @@
 - Begin v1.0 Stage A1: Supabase project setup (hosted, free tier — create project, grab keys, .env.local)
 
 ---
+
+### 2026-09-11 (Day 2) — v1.0 Backend
+**Stage(s):** A1 — Supabase Project Setup
+
+**Work Done:**
+- Completed Stage A1 (all 5 tasks ✅)
+- Created hosted Supabase project (free tier, ref: `jhrlkrkwynsucdrodxza`)
+- Noted API URL, anon key, and service_role key
+- Created `.env.local` with standard Next.js Supabase env var naming (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`)
+- Verified `.gitignore` already covers all needed patterns (node_modules, .env*, .next, etc.)
+- Verified Supabase project is live and responding (API returns auth-gated responses, not DNS/timeout errors)
+- Updated `v1_BACKEND.md` — A1 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A1 row updated to 🟢
+
+**Decisions Made:**
+- Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL` — this is what `@supabase/supabase-js` expects (it appends `/rest/v1/`, `/auth/v1/`, etc. internally)
+
+**Blockers / Issues:**
+- None
+
+**Next Session Plan:**
+- Begin v1.0 Stage A2: Core Schema Design
+  - Design `profile`, `projects`, `skills`, `media` tables
+  - Write SQL migration files
+  - Run migrations against hosted Supabase
+
+---
