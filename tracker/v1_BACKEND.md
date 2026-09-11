@@ -52,20 +52,29 @@
 
 ---
 
-### A3. Row Level Security 🔴
+### A3. Row Level Security 🟢
 > **Track:** Backend | **Depends on:** A2
 
 **Tasks:**
-- [ ] Enable RLS on every table
-- [ ] Public policy: `SELECT` only on published rows
-- [ ] Confirm anon key CANNOT insert, update, or delete (test via Studio SQL)
-- [ ] Document RLS policies applied
+- [x] Enable RLS on every table
+- [x] Public policy: `SELECT` only on published rows
+- [x] Confirm anon key CANNOT insert, update, or delete (test via REST API)
+- [x] Document RLS policies applied
 
 **Notes:**
 - Do this BEFORE writing any frontend fetch code.
 - Build against real security constraints from day one.
+- Migration file: `supabase/migrations/002_rls_policies.sql`
+- Policies applied:
+  - `profile_public_read` — SELECT for anon, all rows
+  - `projects_public_read` — SELECT for anon, `published = true` only
+  - `skills_public_read` — SELECT for anon, all rows
+  - `media_public_read` — SELECT for anon, all rows
+  - `portfolio_bucket_public_read` — SELECT on storage.objects for anon, bucket `portfolio`
+- No INSERT/UPDATE/DELETE policies → RLS default deny blocks all writes for anon
+- Verified via REST API: INSERT returns 401, UPDATE/DELETE return 0 rows, unpublished projects hidden
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

@@ -65,7 +65,7 @@
 ---
 
 ### 2026-09-11 (Day 2) — v1.0 Backend
-**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design
+**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design, A3 — Row Level Security
 
 **Work Done:**
 - Completed Stage A1 (all 5 tasks ✅)
@@ -77,20 +77,34 @@
   - Created SQL migration: `supabase/migrations/001_core_schema.sql` defining `profile`, `projects`, `skills`, `media`, and `portfolio` storage bucket
   - Executed migration successfully on Supabase
   - Verified `projects` table response via REST endpoint
-- Updated `v1_BACKEND.md` — A1 and A2 marked 🟢
-- Updated `MASTER_PROGRESS.md` — A1 and A2 marked 🟢
+- Completed Stage A3 (all 4 tasks ✅)
+  - Created SQL migration: `supabase/migrations/002_rls_policies.sql`
+  - Enabled RLS on all 4 core tables (profile, projects, skills, media)
+  - Created 4 public read-only SELECT policies + 1 storage bucket read policy
+  - `projects` table filters on `published = true` — unpublished rows hidden from public
+  - No write policies created → RLS default deny blocks INSERT/UPDATE/DELETE for anon
+  - Verified via REST API tests:
+    - Anon SELECT on published projects → ✅ works
+    - Anon INSERT → ✅ blocked (401)
+    - Anon UPDATE → ✅ blocked (0 rows affected)
+    - Anon DELETE → ✅ blocked (0 rows affected)
+    - Unpublished project hidden from anon → ✅ confirmed
+- Updated `v1_BACKEND.md` — A1, A2, and A3 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A1, A2, and A3 marked 🟢
 
 **Decisions Made:**
 - Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL`
 - Created dedicated `tracker/SCHEMA_BLUEPRINT.md` as the single source of truth and data preparation guide for Stage A5
+- DEC-007: RLS strategy — deny-all default with public SELECT policies; admin write access deferred to A4
 
 **Blockers / Issues:**
 - None
 
 **Next Session Plan:**
-- Begin v1.0 Stage A3: Row Level Security (RLS policies)
-  - Enable RLS on all four tables
-  - Apply public read-only policies for published content
-  - Verify anon key cannot perform INSERT/UPDATE/DELETE
+- Begin v1.0 Stage A4: Auth Setup (Admin account, admin-only RLS)
+  - Enable Supabase Auth (email + password)
+  - Create admin user account
+  - Write admin-only RLS policy checked against `auth.uid()`
+  - Prove policy works (admin can CRUD, anon cannot)
 
 ---

@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | **A — Backend Foundation** | A1 | Supabase Project Setup (hosted, free tier) | 🟢 | — |
 | | A2 | Core Schema Design (profile, projects, skills, media) | 🟢 | A1 |
-| | A3 | Row Level Security (RLS policies) | 🔴 | A2 |
+| | A3 | Row Level Security (RLS policies) | 🟢 | A2 |
 | | A4 | Auth Setup (Admin account, admin-only RLS) | 🔴 | A3 |
 | | A5 | Seed Data (Real/realistic content) | 🔴 | A2, A3 |
 | | A6 | Data Access Layer (typed fetch functions) | 🔴 | A5 |
