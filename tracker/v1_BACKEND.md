@@ -102,20 +102,26 @@
 
 ---
 
-### A5. Seed Data 🔴
+### A5. Seed Data 🟢
 > **Track:** Backend | **Depends on:** A2, A3
 
 **Tasks:**
-- [ ] Add 2–3 real projects with full data
-- [ ] Write real bio/profile content
-- [ ] Upload 2+ real images to Supabase Storage
-- [ ] Confirm images load via public Storage URL
-- [ ] Add skills data
+- [x] Add 2–3 real projects with full data (18 projects seeded)
+- [x] Write real bio/profile content (1 profile row with full bio, headline, social links)
+- [x] Upload 2+ real images to Supabase Storage (9 images uploaded via Node.js script)
+- [x] Confirm images load via public Storage URL (avatar verified: HTTP 200)
+- [x] Add skills data (29 skills across 6 categories)
 
 **Notes:**
-- Use REAL content where possible. Lorem ipsum makes later frontend decisions harder.
+- Used REAL content migrated from old portfolio via `migration/seed_data.json`
+- Project thumbnails/screenshots skipped (old site used CSS/canvas, not static images) — `thumbnail_url` set to NULL, to be added in frontend phase
+- 9 images uploaded to `portfolio` bucket via `scripts/upload_images.mjs` (service_role key)
+- Media table seeded with 9 rows (storage paths, public URLs, alt text, file sizes)
+- Migration files: `004_seed_data.sql` (profile + projects + skills), `005_seed_media.sql` (media rows)
+- All INSERT statements use `ON CONFLICT ... DO UPDATE` for safe re-runs
+- UNIQUE constraint added to `skills.name` (required for ON CONFLICT)
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

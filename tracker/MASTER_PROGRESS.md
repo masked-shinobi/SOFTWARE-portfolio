@@ -1,6 +1,6 @@
 # 🗺️ Master Progress — Portfolio Platform
 
-> **Last Updated:** 2026-09-11
+> **Last Updated:** 2026-09-11 (A5 completed)
 
 ---
 
@@ -14,7 +14,7 @@
 | | A2 | Core Schema Design (profile, projects, skills, media) | 🟢 | A1 |
 | | A3 | Row Level Security (RLS policies) | 🟢 | A2 |
 | | A4 | Auth Setup (Admin account, admin-only RLS) | 🟢 | A3 |
-| | A5 | Seed Data (Real/realistic content) | 🔴 | A2, A3 |
+| | A5 | Seed Data (Real/realistic content) | 🟢 | A2, A3 |
 | | A6 | Data Access Layer (typed fetch functions) | 🔴 | A5 |
 | **B — Frontend Foundation** | B1 | Next.js Scaffold (routing skeleton, env vars) | 🔴 | A6 |
 | | B2 | Prove Data Connection (render seeded data) | 🔴 | B1 |

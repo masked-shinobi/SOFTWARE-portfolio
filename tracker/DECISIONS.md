@@ -101,3 +101,23 @@
 **Consequences:** Simple and secure. If the admin account is ever recreated, the UUID in all policies must be updated. No need for a users table or role management. Any other authenticated user is denied by default.
 
 ---
+
+### DEC-009: Skip Project Thumbnails — Add During Frontend Phase
+**Date:** 2026-09-11  
+**Stage:** A5 — Seed Data  
+**Context:** The old portfolio used CSS/canvas-generated visuals (animated bubbles, SVG badges) instead of static screenshots for project cards. Generating or capturing 18 static thumbnails would delay A5 completion with no backend value.  
+**Decision:** Set `thumbnail_url` and `images` to NULL/empty for all 18 projects. Add real screenshots or generated images during the frontend build phase (v2.0) when we know exactly what format and dimensions are needed.  
+**Alternatives Considered:** Generate AI placeholder thumbnails now (premature — don't know final card dimensions); manually screenshot each GitHub repo (time-consuming, low quality).  
+**Consequences:** Project rows have no image data until frontend development. This is acceptable because A5's purpose is proving the data pipeline works, not producing final assets.
+
+---
+
+### DEC-010: Programmatic Image Upload via Node.js Script
+**Date:** 2026-09-11  
+**Stage:** A5 — Seed Data  
+**Context:** 9 local images needed to be uploaded to the Supabase `portfolio` storage bucket. Could upload manually via Dashboard or automate with a script.  
+**Decision:** Wrote `scripts/upload_images.mjs` using `@supabase/supabase-js` with the `service_role` key to upload all 9 images programmatically. Script also auto-generates `005_seed_media.sql` with the media table seed data.  
+**Alternatives Considered:** Manual upload via Supabase Dashboard (not reproducible, no record of what was uploaded).  
+**Consequences:** Uploads are reproducible and documented. Script can be re-run with `upsert: true` if images need updating. Media seed SQL is auto-generated with correct public URLs and file sizes.
+
+---

@@ -127,3 +127,41 @@
   - Add skills data
 
 ---
+
+### 2026-09-11 (Day 3) — v1.0 Backend
+**Stage(s):** A5 — Seed Data
+
+**Work Done:**
+- Completed Stage A5 (all 5 tasks ✅)
+  - Migrated real content from old portfolio (`migration/seed_data.json`) into Supabase
+  - Added UNIQUE constraint on `skills.name` (required for `ON CONFLICT` upserts)
+  - Seeded `profile` table: 1 row (Sanjay Baskar — full bio, headline, social links, resume URL)
+  - Seeded `projects` table: 18 projects with slugs, tech stacks, descriptions, featured/published flags
+  - Seeded `skills` table: 29 skills across 6 categories (Languages, Frameworks, Databases, Cloud & DevOps, Tools, Other)
+  - Wrote Node.js upload script (`scripts/upload_images.mjs`) to push images to Supabase Storage
+  - Uploaded 9 images to `portfolio` bucket (avatar, hero stickers, chat mascot, contact logo, floating stickers)
+  - Seeded `media` table: 9 rows with storage paths, public URLs, alt text, MIME types, file sizes
+  - Verified avatar public URL loads (HTTP 200, 3.2 MB)
+  - Verified all table row counts: profile=1, projects=18, skills=29, media=9
+- Created migration files:
+  - `supabase/migrations/004_seed_data.sql` (skills unique constraint + profile + projects + skills)
+  - `supabase/migrations/005_seed_media.sql` (auto-generated media table seed)
+- Initialized `package.json` and installed `@supabase/supabase-js` for upload script
+- Updated `v1_BACKEND.md` — A5 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A5 marked 🟢
+
+**Decisions Made:**
+- DEC-009: Skipped project thumbnails/screenshots — old portfolio used CSS/canvas-generated visuals, not static images. Set `thumbnail_url` to NULL; will add real images during frontend phase
+- DEC-010: Programmatic image upload via Node.js script using service_role key, rather than manual Dashboard uploads
+
+**Blockers / Issues:**
+- None
+
+**Next Session Plan:**
+- Begin v1.0 Stage A6: Data Access Layer (typed fetch functions)
+  - Set up Supabase client (browser + SSR)
+  - Generate TypeScript types from Supabase schema
+  - Write `getProfile()`, `getProjects()`, `getSkills()`, `getMedia()` functions
+  - Test all fetch functions return correct typed data
+
+---
