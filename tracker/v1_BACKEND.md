@@ -126,23 +126,38 @@
 
 ---
 
-### A6. Data Access Layer 🔴
+### A6. Data Access Layer 🟢
 > **Track:** Backend | **Depends on:** A5
 
 **Tasks:**
-- [ ] Set up Supabase client (browser) configuration
-- [ ] Set up Supabase server (SSR) configuration
-- [ ] Generate TypeScript types from Supabase schema
-- [ ] Write `getProfile()` function
-- [ ] Write `getProjects()` function
-- [ ] Write `getSkills()` function
-- [ ] Write `getMedia()` function
-- [ ] Test all fetch functions return correct typed data
+- [x] Set up Supabase client (browser) configuration
+- [x] Set up Supabase server (SSR) configuration
+- [x] Generate TypeScript types from Supabase schema
+- [x] Write `getProfile()` function
+- [x] Write `getProjects()` function
+- [x] Write `getSkills()` function
+- [x] Write `getMedia()` function
+- [x] Test all fetch functions return correct typed data
 
 **Notes:**
 - This is the seam between backend and frontend. Get it right once, both experiences reuse it.
+- Hand-wrote TypeScript types from `SCHEMA_BLUEPRINT.md` — exact match to schema, no CLI overhead
+- Installed `@supabase/ssr` for cookie-aware server client (Next.js App Router compatible)
+- All fetch functions accept an optional `client` parameter — injectable from Next.js server/browser clients
+- Additional convenience functions: `getFeaturedProjects()`, `getProjectBySlug()`, `getSkillsByCategory()`, `getMediaByType()`
+- Barrel export at `src/lib/data/index.ts` for clean imports
+- Verification script (`scripts/test_data_layer.ts`) — 15/15 tests passed
+- Files created:
+  - `src/types/database.types.ts` — Full Database interface + Row/Insert/Update types
+  - `src/lib/supabase/client.ts` — Browser client (Client Components)
+  - `src/lib/supabase/server.ts` — Server client (Server Components, SSR)
+  - `src/lib/data/profile.ts` — `getProfile()`
+  - `src/lib/data/projects.ts` — `getProjects()`, `getFeaturedProjects()`, `getProjectBySlug()`
+  - `src/lib/data/skills.ts` — `getSkills()`, `getSkillsByCategory()`
+  - `src/lib/data/media.ts` — `getMedia()`, `getMediaByType()`
+  - `src/lib/data/index.ts` — Barrel export
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

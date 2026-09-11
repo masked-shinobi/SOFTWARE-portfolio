@@ -121,3 +121,23 @@
 **Consequences:** Uploads are reproducible and documented. Script can be re-run with `upsert: true` if images need updating. Media seed SQL is auto-generated with correct public URLs and file sizes.
 
 ---
+
+### DEC-011: Hand-Written TypeScript Types (No CLI Gen)
+**Date:** 2026-09-11  
+**Stage:** A6 — Data Access Layer  
+**Context:** Supabase offers `supabase gen types typescript` to auto-generate database types. However, the CLI needs to be linked to the project, and we only have 4 simple tables with well-documented schemas.  
+**Decision:** Hand-write the TypeScript types in `src/types/database.types.ts` based on `SCHEMA_BLUEPRINT.md`. Include a full `Database` interface compatible with `createClient<Database>()`, plus separate `Row`, `Insert`, and `Update` type aliases for each table.  
+**Alternatives Considered:** Auto-generate via Supabase CLI (requires project linking and CLI installation before Next.js exists — overhead with no accuracy benefit for 4 tables).  
+**Consequences:** Types are version-controlled and readable. If the schema changes, types must be updated manually (but schema changes also require a migration, so this is a natural checkpoint). Can switch to auto-generation in the future if table count grows significantly.
+
+---
+
+### DEC-012: Injectable Supabase Client in Fetch Functions
+**Date:** 2026-09-11  
+**Stage:** A6 — Data Access Layer  
+**Context:** Data access functions need a Supabase client. In Next.js, the client differs between Server Components (cookie-aware) and Client Components (browser-based). Outside Next.js (scripts, tests), a standalone client is needed.  
+**Decision:** All fetch functions accept an optional `client` parameter. When called from Next.js, pass the server or browser client. When called standalone (scripts, tests), omit the parameter and a fallback client is created automatically using `@supabase/supabase-js`.  
+**Alternatives Considered:** Separate function signatures for server vs. client; global singleton client (breaks SSR cookie handling); always require client parameter (inconvenient for scripts).  
+**Consequences:** Maximum flexibility — same functions work in Server Components, Client Components, and standalone scripts. The optional parameter pattern avoids coupling to any specific runtime.
+
+---

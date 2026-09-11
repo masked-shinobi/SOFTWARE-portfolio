@@ -165,3 +165,51 @@
   - Test all fetch functions return correct typed data
 
 ---
+
+### 2026-09-11 (Day 4) — v1.0 Backend
+**Stage(s):** A6 — Data Access Layer
+
+**Work Done:**
+- Completed Stage A6 (all 8 tasks ✅)
+  - Hand-wrote TypeScript types from `SCHEMA_BLUEPRINT.md` → `src/types/database.types.ts`
+    - Full `Database` interface for Supabase client generic typing
+    - Separate `Row`, `Insert`, `Update` types for all 4 tables
+    - `SocialLinks` interface for profile JSONB column
+  - Created Supabase browser client → `src/lib/supabase/client.ts`
+    - Uses `createBrowserClient()` from `@supabase/ssr`
+    - For Client Components (`'use client'`)
+  - Created Supabase server client → `src/lib/supabase/server.ts`
+    - Uses `createServerClient()` from `@supabase/ssr` with cookie handling
+    - For Server Components, Route Handlers, Server Actions
+  - Wrote 8 typed fetch functions across 4 data modules:
+    - `getProfile()` — single row, returns `Profile | null`
+    - `getProjects()` — all published, ordered by display_order
+    - `getFeaturedProjects()` — featured only
+    - `getProjectBySlug(slug)` — single project by URL slug
+    - `getSkills()` — all skills, ordered by category + display_order
+    - `getSkillsByCategory()` — grouped by category → `Record<string, Skill[]>`
+    - `getMedia()` — all media, newest first
+    - `getMediaByType(type)` — filtered by image/video/document
+  - All functions accept optional `client` parameter for dependency injection
+  - Barrel export at `src/lib/data/index.ts`
+  - Created verification script (`scripts/test_data_layer.ts`) — **15/15 tests passed**
+  - Installed `@supabase/ssr`, `typescript`, `tsx`
+- Updated `v1_BACKEND.md` — A6 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A6 marked 🟢
+
+**Decisions Made:**
+- DEC-011: Hand-wrote types instead of using `supabase gen types` CLI — faster, equally accurate for 4 simple tables, avoids CLI setup before Next.js exists
+- DEC-012: All fetch functions accept optional Supabase client parameter — enables dependency injection from either server or browser client in Next.js, plus standalone usage in scripts
+
+**Blockers / Issues:**
+- IDE shows lint errors for `@/` path alias, `next/headers`, `@types/node` — expected since Next.js project doesn't exist yet (Stage B1). All code executes correctly via `tsx`.
+
+**Next Session Plan:**
+- Begin v1.0 Stage B1: Next.js Scaffold
+  - Create Next.js + TypeScript + Tailwind project
+  - Set up App Router folder structure (entry, developer, creative, story, admin routes)
+  - Connect env vars
+  - Set up `@/` path alias (resolves current lint errors)
+  - Move `src/` files into the Next.js project structure
+
+---

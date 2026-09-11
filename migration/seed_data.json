@@ -1,0 +1,580 @@
+{
+  "profile": {
+    "full_name": "Sanjay Baskar",
+    "headline": "Design Engineer • Cloud & Security Developer",
+    "short_bio": "Design Engineer building digital products that blend creativity with robust engineering. Non-linear thinking for a linear world.",
+    "long_bio": "I'm a Design Engineer and 3rd-year Computer Science student at SRM Institute of Science and Technology (SRM IST), Chennai, maintaining a CGPA of 9.88 with Merit Scholarship. I specialize in building digital experiences at the intersection of creative frontends, scalable cloud platforms, and AI-driven intelligence. My experience spans AI/ML research at King Faisal University, web engineering at CJ Network, and Python software development at Infosys.",
+    "avatar_url": "portfolio/avatar/avatar.png",
+    "social_links": {
+      "github": "https://github.com/masked-shinobi",
+      "linkedin": "https://www.linkedin.com/in/masked-shinobi-30a289377/",
+      "email": "mailto:maskedprogrammer.in@gmail.com",
+      "website": "https://github.com/masked-shinobi",
+      "other": "https://app.notion.com/p/dsa-spreadsheet-sanjaybaskar/73b3a11dd45d8250922601672faf0c8c?v=8d43a11dd45d822db96b08a00fbbd6ef&source=copy_link"
+    },
+    "resume_url": "https://drive.google.com/file/d/1QGokMLQhPTLxFkUjbR9Es9ofhuaZsnsl/view?usp=drive_link"
+  },
+  "projects": [
+    {
+      "title": "AI Resume Analyzer",
+      "slug": "ai-resume-analyzer",
+      "tagline": "AI-powered resume parsing and analysis tool",
+      "description": "Intelligent resume parsing and evaluation platform that extracts structured insights, computes skill-job alignment scores, and provides actionable optimization feedback.",
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "JavaScript"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/AI-RESUME-ANALYSER",
+      "thumbnail_url": "portfolio/projects/ai-resume-analyzer/thumbnail.png",
+      "images": [
+        "portfolio/projects/ai-resume-analyzer/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 1
+    },
+    {
+      "title": "Advanced RAG — Resembler",
+      "slug": "advanced-rag-resembler",
+      "tagline": "Advanced RAG with semantic similarity search",
+      "description": "Production-ready retrieval-augmented generation pipeline integrating LangChain and FAISS vector embeddings to deliver precise, citation-grounded semantic search across proprietary document corpuses.",
+      "tech_stack": [
+        "Python",
+        "LangChain",
+        "FAISS"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/MinorProject_resembler",
+      "thumbnail_url": "portfolio/projects/advanced-rag-resembler/thumbnail.png",
+      "images": [
+        "portfolio/projects/advanced-rag-resembler/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 2
+    },
+    {
+      "title": "RAG Architecture",
+      "slug": "rag-architecture",
+      "tagline": "Modular retrieval-augmented generation pipeline",
+      "description": "Core modular retrieval-augmented generation pipeline implemented in Python with optimized chunking, vector retrieval, and prompt synthesis workflows.",
+      "tech_stack": [
+        "Python"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/minor_rag_architecture",
+      "thumbnail_url": "portfolio/projects/rag-architecture/thumbnail.png",
+      "images": [
+        "portfolio/projects/rag-architecture/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 3
+    },
+    {
+      "title": "MCQ Master",
+      "slug": "mcq-master",
+      "tagline": "Interactive MCQ test builder and assessment platform",
+      "description": "Full-stack exam management application supporting dynamic quiz generation, instant automated grading, question bank management, and real-time student analytics backed by Supabase.",
+      "tech_stack": [
+        "React",
+        "Supabase",
+        "JavaScript"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/MCQ_test_Maker_website",
+      "thumbnail_url": "portfolio/projects/mcq-master/thumbnail.png",
+      "images": [
+        "portfolio/projects/mcq-master/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 4
+    },
+    {
+      "title": "Shinobi Black VS Code Theme",
+      "slug": "shinobi-black-theme",
+      "tagline": "OLED true-black VS Code theme with vibrant syntax highlighting",
+      "description": "Published VS Code extension crafted specifically for OLED screens, featuring high-contrast neon accents, refined token scoping, and reduced eye strain during extended programming sessions.",
+      "tech_stack": [
+        "VS Code",
+        "JSON",
+        "JavaScript"
+      ],
+      "live_url": "https://marketplace.visualstudio.com/items?itemName=SanjayBaskar.shinobi-black-theme",
+      "github_url": "https://marketplace.visualstudio.com/items?itemName=SanjayBaskar.shinobi-black-theme",
+      "thumbnail_url": "portfolio/projects/shinobi-black-theme/thumbnail.png",
+      "images": [
+        "portfolio/projects/shinobi-black-theme/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 5
+    },
+    {
+      "title": "CyberSecurity Web Centinel",
+      "slug": "cybersecurity-web-centinel",
+      "tagline": "Animated cybersecurity showcase and monitoring website",
+      "description": "Interactive, highly choreographed web portfolio highlighting real-time threat intelligence patterns, interactive vulnerability counters, and fluid GSAP animation sequences.",
+      "tech_stack": [
+        "JavaScript",
+        "GSAP",
+        "CSS"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/CyberSecurity_Web_Centinel",
+      "thumbnail_url": "portfolio/projects/cybersecurity-web-centinel/thumbnail.png",
+      "images": [
+        "portfolio/projects/cybersecurity-web-centinel/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 6
+    },
+    {
+      "title": "GSAP 3D Website",
+      "slug": "gsap-3d-website",
+      "tagline": "Immersive 3D web experience with GSAP and Three.js",
+      "description": "Creative engineering experiment exploring spatial canvas navigation, 3D mesh rendering, lighting models, and camera path choreography driven by GSAP timeline controls.",
+      "tech_stack": [
+        "GSAP",
+        "Three.js",
+        "JavaScript"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/GSAP-website-3d",
+      "thumbnail_url": "portfolio/projects/gsap-3d-website/thumbnail.png",
+      "images": [
+        "portfolio/projects/gsap-3d-website/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 7
+    },
+    {
+      "title": "Ecommerce Devin",
+      "slug": "ecommerce-devin",
+      "tagline": "AI-assisted e-commerce workflow automation",
+      "description": "Modern e-commerce platform incorporating autonomous AI developer workflows for product catalog synchronization, cart flows, and reactive UI state management.",
+      "tech_stack": [
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/Ecommerce-devin-ai-workflow",
+      "thumbnail_url": "portfolio/projects/ecommerce-devin/thumbnail.png",
+      "images": [
+        "portfolio/projects/ecommerce-devin/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 8
+    },
+    {
+      "title": "DevOps WebApp Cloud",
+      "slug": "devops-webapp-cloud",
+      "tagline": "Cloud-deployed web application with automated CI/CD pipeline",
+      "description": "Production-grade cloud native web application deployment demonstrating immutable build pipelines, automated container testing, Docker image packaging, and cloud release automation.",
+      "tech_stack": [
+        "CI/CD",
+        "Cloud",
+        "Docker"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/devops_webapp_cloud",
+      "thumbnail_url": "portfolio/projects/devops-webapp-cloud/thumbnail.png",
+      "images": [
+        "portfolio/projects/devops-webapp-cloud/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 9
+    },
+    {
+      "title": "Tic Tac Toe Docker",
+      "slug": "tic-tac-toe-docker",
+      "tagline": "Containerized game deployment with Docker",
+      "description": "Zero-dependency containerized micro-application packaged with minimal Docker multi-stage builds and isolated environment provisioning.",
+      "tech_stack": [
+        "Docker",
+        "Linux",
+        "JavaScript"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/Tic-Tac-Toe-Docker",
+      "thumbnail_url": "portfolio/projects/tic-tac-toe-docker/thumbnail.png",
+      "images": [
+        "portfolio/projects/tic-tac-toe-docker/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 10
+    },
+    {
+      "title": "Food Delivery App",
+      "slug": "food-delivery-app",
+      "tagline": "Cross-platform mobile food ordering & delivery application",
+      "description": "Mobile application developed with React Native delivering responsive restaurant feeds, customized meal selections, cart persistence, and simulated order tracking.",
+      "tech_stack": [
+        "React Native",
+        "JavaScript",
+        "Mobile"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/Food-delivery-app-reactnative",
+      "thumbnail_url": "portfolio/projects/food-delivery-app/thumbnail.png",
+      "images": [
+        "portfolio/projects/food-delivery-app/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 11
+    },
+    {
+      "title": "Android File Manager",
+      "slug": "android-file-manager",
+      "tagline": "Native Android file management application in Kotlin",
+      "description": "Native Android application written in Kotlin following modern Jetpack principles, featuring file system tree traversal, MIME type resolution, and storage permission management.",
+      "tech_stack": [
+        "Kotlin",
+        "Android SDK"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/file-manager-app",
+      "thumbnail_url": "portfolio/projects/android-file-manager/thumbnail.png",
+      "images": [
+        "portfolio/projects/android-file-manager/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 12
+    },
+    {
+      "title": "Organ Donation Platform",
+      "slug": "organ-donation-platform",
+      "tagline": "Decentralized organ donor registry on Ethereum blockchain",
+      "description": "Decentralized biomedical application leveraging Solidity smart contracts to guarantee immutable donor consent, cryptographic confidentiality, and transparent recipient prioritization without intermediary tampering.",
+      "tech_stack": [
+        "Solidity",
+        "Blockchain",
+        "Ethereum"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/Organ-Donation-Platform-BlockChain",
+      "thumbnail_url": "portfolio/projects/organ-donation-platform/thumbnail.png",
+      "images": [
+        "portfolio/projects/organ-donation-platform/screenshot-1.png"
+      ],
+      "featured": true,
+      "published": true,
+      "display_order": 13
+    },
+    {
+      "title": "Email Simulator",
+      "slug": "email-simulator",
+      "tagline": "Simulates SMTP/POP3 email protocols from scratch",
+      "description": "Computer networks implementation modeling email transfer protocols (SMTP/POP3) from sockets up, simulating packet exchanges, connection handshakes, and mailbox architectures.",
+      "tech_stack": [
+        "Networking",
+        "Python",
+        "Sockets"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/email-simulator-CN",
+      "thumbnail_url": "portfolio/projects/email-simulator/thumbnail.png",
+      "images": [
+        "portfolio/projects/email-simulator/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 14
+    },
+    {
+      "title": "DSA in C++",
+      "slug": "dsa-in-cpp",
+      "tagline": "Data structures implemented in C++ with unit tests",
+      "description": "Robust, templated C++ implementations of linear and non-linear data structures alongside algorithmic solutions, fully verified through comprehensive Google Test (GTest) test suites.",
+      "tech_stack": [
+        "C++",
+        "GTest",
+        "Algorithms"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/DSA-C-with-gtest",
+      "thumbnail_url": "portfolio/projects/dsa-in-cpp/thumbnail.png",
+      "images": [
+        "portfolio/projects/dsa-in-cpp/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 15
+    },
+    {
+      "title": "PTS Algorithm",
+      "slug": "pts-algorithm",
+      "tagline": "Custom algorithm design and optimization implementation",
+      "description": "Deep-dive algorithmic exploration exploring pattern transformation and computational search space minimization with formal performance benchmarking.",
+      "tech_stack": [
+        "Algorithm Design",
+        "C++",
+        "Python"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/PTS-Algorithm",
+      "thumbnail_url": "portfolio/projects/pts-algorithm/thumbnail.png",
+      "images": [
+        "portfolio/projects/pts-algorithm/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 16
+    },
+    {
+      "title": "Python Unit Testing",
+      "slug": "python-unit-testing",
+      "tagline": "Unit testing patterns and best practices in Python",
+      "description": "Comprehensive reference suite showcasing clean code test strategies, boundary value analysis, mocking patterns, and automated test runners using Python unittest.",
+      "tech_stack": [
+        "Python",
+        "unittest"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/code-unit-testing",
+      "thumbnail_url": "portfolio/projects/python-unit-testing/thumbnail.png",
+      "images": [
+        "portfolio/projects/python-unit-testing/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 17
+    },
+    {
+      "title": "SRM Placement Compass",
+      "slug": "srm-placement-compass",
+      "tagline": "Placement preparation guide & roadmap for SRM students",
+      "description": "Structured repository containing recruitment roadmaps, technical interview question breakdowns, system design notes, and coding practice curricula for SRM university engineering students.",
+      "tech_stack": [
+        "Resource Hub",
+        "DSA",
+        "Markdown"
+      ],
+      "live_url": "",
+      "github_url": "https://github.com/masked-shinobi/srm-placement-compass",
+      "thumbnail_url": "portfolio/projects/srm-placement-compass/thumbnail.png",
+      "images": [
+        "portfolio/projects/srm-placement-compass/screenshot-1.png"
+      ],
+      "featured": false,
+      "published": true,
+      "display_order": 18
+    }
+  ],
+  "skills": [
+    {
+      "name": "TypeScript",
+      "category": "Languages",
+      "proficiency": 90,
+      "icon_name": "typescript",
+      "display_order": 1
+    },
+    {
+      "name": "JavaScript",
+      "category": "Languages",
+      "proficiency": 95,
+      "icon_name": "javascript",
+      "display_order": 2
+    },
+    {
+      "name": "Python",
+      "category": "Languages",
+      "proficiency": 92,
+      "icon_name": "python",
+      "display_order": 3
+    },
+    {
+      "name": "C++",
+      "category": "Languages",
+      "proficiency": 88,
+      "icon_name": "cplusplus",
+      "display_order": 4
+    },
+    {
+      "name": "Java",
+      "category": "Languages",
+      "proficiency": 82,
+      "icon_name": "java",
+      "display_order": 5
+    },
+    {
+      "name": "Kotlin",
+      "category": "Languages",
+      "proficiency": 78,
+      "icon_name": "kotlin",
+      "display_order": 6
+    },
+    {
+      "name": "Solidity",
+      "category": "Languages",
+      "proficiency": 74,
+      "icon_name": "solidity",
+      "display_order": 7
+    },
+    {
+      "name": "React",
+      "category": "Frameworks",
+      "proficiency": 92,
+      "icon_name": "react",
+      "display_order": 8
+    },
+    {
+      "name": "Next.js",
+      "category": "Frameworks",
+      "proficiency": 85,
+      "icon_name": "nextjs",
+      "display_order": 9
+    },
+    {
+      "name": "Node.js",
+      "category": "Frameworks",
+      "proficiency": 88,
+      "icon_name": "nodejs",
+      "display_order": 10
+    },
+    {
+      "name": "React Native",
+      "category": "Frameworks",
+      "proficiency": 80,
+      "icon_name": "react",
+      "display_order": 11
+    },
+    {
+      "name": "GSAP",
+      "category": "Frameworks",
+      "proficiency": 86,
+      "icon_name": "greensock",
+      "display_order": 12
+    },
+    {
+      "name": "Three.js",
+      "category": "Frameworks",
+      "proficiency": 76,
+      "icon_name": "threedotjs",
+      "display_order": 13
+    },
+    {
+      "name": "LangChain",
+      "category": "Frameworks",
+      "proficiency": 84,
+      "icon_name": "langchain",
+      "display_order": 14
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "Databases",
+      "proficiency": 88,
+      "icon_name": "postgresql",
+      "display_order": 15
+    },
+    {
+      "name": "Supabase",
+      "category": "Databases",
+      "proficiency": 90,
+      "icon_name": "supabase",
+      "display_order": 16
+    },
+    {
+      "name": "FAISS",
+      "category": "Databases",
+      "proficiency": 80,
+      "icon_name": "faiss",
+      "display_order": 17
+    },
+    {
+      "name": "Docker",
+      "category": "Cloud & DevOps",
+      "proficiency": 84,
+      "icon_name": "docker",
+      "display_order": 18
+    },
+    {
+      "name": "Google Cloud Platform",
+      "category": "Cloud & DevOps",
+      "proficiency": 80,
+      "icon_name": "googlecloud",
+      "display_order": 19
+    },
+    {
+      "name": "CI/CD & GitHub Actions",
+      "category": "Cloud & DevOps",
+      "proficiency": 85,
+      "icon_name": "githubactions",
+      "display_order": 20
+    },
+    {
+      "name": "Kubernetes",
+      "category": "Cloud & DevOps",
+      "proficiency": 75,
+      "icon_name": "kubernetes",
+      "display_order": 21
+    },
+    {
+      "name": "Git & GitHub",
+      "category": "Tools",
+      "proficiency": 92,
+      "icon_name": "git",
+      "display_order": 22
+    },
+    {
+      "name": "VS Code",
+      "category": "Tools",
+      "proficiency": 95,
+      "icon_name": "vscode",
+      "display_order": 23
+    },
+    {
+      "name": "Linux",
+      "category": "Tools",
+      "proficiency": 86,
+      "icon_name": "linux",
+      "display_order": 24
+    },
+    {
+      "name": "Google Test (GTest)",
+      "category": "Tools",
+      "proficiency": 80,
+      "icon_name": "googletest",
+      "display_order": 25
+    },
+    {
+      "name": "RAG Architecture",
+      "category": "Other",
+      "proficiency": 88,
+      "icon_name": "openai",
+      "display_order": 26
+    },
+    {
+      "name": "Data Structures & Algorithms",
+      "category": "Other",
+      "proficiency": 90,
+      "icon_name": "cplusplus",
+      "display_order": 27
+    },
+    {
+      "name": "Unit Testing & TDD",
+      "category": "Other",
+      "proficiency": 85,
+      "icon_name": "pytest",
+      "display_order": 28
+    },
+    {
+      "name": "Blockchain & Smart Contracts",
+      "category": "Other",
+      "proficiency": 78,
+      "icon_name": "ethereum",
+      "display_order": 29
+    }
+  ]
+}
