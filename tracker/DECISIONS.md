@@ -91,3 +91,13 @@
 **Consequences:** Tables are locked down from day one. The anon key can only read, never write. Unpublished projects are invisible to the public. Admin writes are impossible until A4 (by design — forces us to complete auth before any content management).
 
 ---
+
+### DEC-008: Admin Auth — Single Hardcoded UUID, No Role Column
+**Date:** 2026-09-11  
+**Stage:** A4 — Auth Setup  
+**Context:** We need admin write access via RLS. Options: (a) hardcode the admin's `auth.uid()` in each policy, (b) add a `role` column to a `users` table and check that, or (c) use Supabase custom claims/JWT.  
+**Decision:** Hardcode the admin UUID (`428d026c-33dd-4845-a903-4831adfb7e56`) directly in all RLS policies. This is a single-user portfolio — there will only ever be one admin.  
+**Alternatives Considered:** Role column in a users table (overkill for single admin); Supabase custom claims (adds JWT complexity); service_role key for all writes (bypasses RLS entirely, defeats the purpose).  
+**Consequences:** Simple and secure. If the admin account is ever recreated, the UUID in all policies must be updated. No need for a users table or role management. Any other authenticated user is denied by default.
+
+---

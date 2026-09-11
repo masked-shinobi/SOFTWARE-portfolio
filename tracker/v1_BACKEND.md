@@ -79,19 +79,25 @@
 
 ---
 
-### A4. Auth Setup 🔴
+### A4. Auth Setup 🟢
 > **Track:** Backend | **Depends on:** A3
 
 **Tasks:**
-- [ ] Enable Supabase Auth (email + password)
-- [ ] Create admin user account
-- [ ] Write admin-only RLS policy checked against `auth.uid()`
-- [ ] Prove policy works via Studio (admin can CRUD, anon cannot)
+- [x] Enable Supabase Auth (email + password)
+- [x] Create admin user account
+- [x] Write admin-only RLS policy checked against `auth.uid()`
+- [x] Prove policy works via Studio (admin can CRUD, anon cannot)
 
 **Notes:**
 - No admin UI needed yet — just prove the policy works.
+- Admin user: `maskedprogrammer.in@gmail.com`
+- Admin UUID: `428d026c-33dd-4845-a903-4831adfb7e56`
+- Migration file: `supabase/migrations/003_admin_rls_policies.sql`
+- Policies created: 4 tables × 4 operations (SELECT, INSERT, UPDATE, DELETE) = 16 policies + 4 storage policies
+- All policies check `auth.uid() = '<admin-uuid>'` — only the admin can write
+- Verified via REST API: admin CRUD works, anon INSERT blocked (401), unpublished projects hidden from anon
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

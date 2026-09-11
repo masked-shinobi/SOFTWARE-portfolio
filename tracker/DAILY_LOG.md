@@ -65,7 +65,7 @@
 ---
 
 ### 2026-09-11 (Day 2) — v1.0 Backend
-**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design, A3 — Row Level Security
+**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design, A3 — Row Level Security, A4 — Auth Setup
 
 **Work Done:**
 - Completed Stage A1 (all 5 tasks ✅)
@@ -89,8 +89,21 @@
     - Anon UPDATE → ✅ blocked (0 rows affected)
     - Anon DELETE → ✅ blocked (0 rows affected)
     - Unpublished project hidden from anon → ✅ confirmed
-- Updated `v1_BACKEND.md` — A1, A2, and A3 marked 🟢
-- Updated `MASTER_PROGRESS.md` — A1, A2, and A3 marked 🟢
+- Completed Stage A4 (all 4 tasks ✅)
+  - Enabled Supabase Auth (email + password) via Dashboard
+  - Created admin user: `maskedprogrammer.in@gmail.com` (UUID: `428d026c-33dd-4845-a903-4831adfb7e56`)
+  - Created SQL migration: `supabase/migrations/003_admin_rls_policies.sql`
+  - 16 admin policies on 4 tables (SELECT, INSERT, UPDATE, DELETE each) + 4 storage policies
+  - All policies check `auth.uid() = '<admin-uuid>'`
+  - Verified via REST API tests:
+    - Admin INSERT → ✅ works
+    - Admin SELECT (unpublished) → ✅ sees all rows
+    - Anon SELECT (unpublished) → ✅ hidden (empty result)
+    - Admin UPDATE → ✅ works
+    - Anon INSERT → ✅ blocked (401)
+    - Admin DELETE → ✅ works (test row cleaned up)
+- Updated `v1_BACKEND.md` — A1, A2, A3, and A4 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A1, A2, A3, and A4 marked 🟢
 - Git Sync & Branch Management:
   - Pulled and merged `dev` branch into `main` cleanly
   - Pushed `main` to origin
@@ -100,15 +113,17 @@
 - Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL`
 - Created dedicated `tracker/SCHEMA_BLUEPRINT.md` as the single source of truth and data preparation guide for Stage A5
 - DEC-007: RLS strategy — deny-all default with public SELECT policies; admin write access deferred to A4
+- DEC-008: Admin auth — single hardcoded UUID in RLS policies, no role column needed (single-user portfolio)
 
 **Blockers / Issues:**
 - None
 
 **Next Session Plan:**
-- Begin v1.0 Stage A4: Auth Setup (Admin account, admin-only RLS)
-  - Enable Supabase Auth (email + password)
-  - Create admin user account
-  - Write admin-only RLS policy checked against `auth.uid()`
-  - Prove policy works (admin can CRUD, anon cannot)
+- Begin v1.0 Stage A5: Seed Data (Real/realistic content)
+  - Add 2–3 real projects with full data
+  - Write real bio/profile content
+  - Upload 2+ real images to Supabase Storage
+  - Confirm images load via public Storage URL
+  - Add skills data
 
 ---
