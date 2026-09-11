@@ -65,7 +65,7 @@
 ---
 
 ### 2026-09-11 (Day 2) — v1.0 Backend
-**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design, A3 — Row Level Security
+**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design, A3 — Row Level Security, A4 — Auth Setup
 
 **Work Done:**
 - Completed Stage A1 (all 5 tasks ✅)
@@ -89,22 +89,128 @@
     - Anon UPDATE → ✅ blocked (0 rows affected)
     - Anon DELETE → ✅ blocked (0 rows affected)
     - Unpublished project hidden from anon → ✅ confirmed
-- Updated `v1_BACKEND.md` — A1, A2, and A3 marked 🟢
-- Updated `MASTER_PROGRESS.md` — A1, A2, and A3 marked 🟢
+- Completed Stage A4 (all 4 tasks ✅)
+  - Enabled Supabase Auth (email + password) via Dashboard
+  - Created admin user: `maskedprogrammer.in@gmail.com` (UUID: `428d026c-33dd-4845-a903-4831adfb7e56`)
+  - Created SQL migration: `supabase/migrations/003_admin_rls_policies.sql`
+  - 16 admin policies on 4 tables (SELECT, INSERT, UPDATE, DELETE each) + 4 storage policies
+  - All policies check `auth.uid() = '<admin-uuid>'`
+  - Verified via REST API tests:
+    - Admin INSERT → ✅ works
+    - Admin SELECT (unpublished) → ✅ sees all rows
+    - Anon SELECT (unpublished) → ✅ hidden (empty result)
+    - Admin UPDATE → ✅ works
+    - Anon INSERT → ✅ blocked (401)
+    - Admin DELETE → ✅ works (test row cleaned up)
+- Updated `v1_BACKEND.md` — A1, A2, A3, and A4 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A1, A2, A3, and A4 marked 🟢
+- Git Sync & Branch Management:
+  - Pulled and merged `dev` branch into `main` cleanly
+  - Pushed `main` to origin
+  - Confirmed default repository branch is `main`, active development remains on `dev`
 
 **Decisions Made:**
 - Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL`
 - Created dedicated `tracker/SCHEMA_BLUEPRINT.md` as the single source of truth and data preparation guide for Stage A5
 - DEC-007: RLS strategy — deny-all default with public SELECT policies; admin write access deferred to A4
+- DEC-008: Admin auth — single hardcoded UUID in RLS policies, no role column needed (single-user portfolio)
 
 **Blockers / Issues:**
 - None
 
 **Next Session Plan:**
-- Begin v1.0 Stage A4: Auth Setup (Admin account, admin-only RLS)
-  - Enable Supabase Auth (email + password)
-  - Create admin user account
-  - Write admin-only RLS policy checked against `auth.uid()`
-  - Prove policy works (admin can CRUD, anon cannot)
+- Begin v1.0 Stage A5: Seed Data (Real/realistic content)
+  - Add 2–3 real projects with full data
+  - Write real bio/profile content
+  - Upload 2+ real images to Supabase Storage
+  - Confirm images load via public Storage URL
+  - Add skills data
+
+---
+
+### 2026-09-11 (Day 3) — v1.0 Backend
+**Stage(s):** A5 — Seed Data
+
+**Work Done:**
+- Completed Stage A5 (all 5 tasks ✅)
+  - Migrated real content from old portfolio (`migration/seed_data.json`) into Supabase
+  - Added UNIQUE constraint on `skills.name` (required for `ON CONFLICT` upserts)
+  - Seeded `profile` table: 1 row (Sanjay Baskar — full bio, headline, social links, resume URL)
+  - Seeded `projects` table: 18 projects with slugs, tech stacks, descriptions, featured/published flags
+  - Seeded `skills` table: 29 skills across 6 categories (Languages, Frameworks, Databases, Cloud & DevOps, Tools, Other)
+  - Wrote Node.js upload script (`scripts/upload_images.mjs`) to push images to Supabase Storage
+  - Uploaded 9 images to `portfolio` bucket (avatar, hero stickers, chat mascot, contact logo, floating stickers)
+  - Seeded `media` table: 9 rows with storage paths, public URLs, alt text, MIME types, file sizes
+  - Verified avatar public URL loads (HTTP 200, 3.2 MB)
+  - Verified all table row counts: profile=1, projects=18, skills=29, media=9
+- Created migration files:
+  - `supabase/migrations/004_seed_data.sql` (skills unique constraint + profile + projects + skills)
+  - `supabase/migrations/005_seed_media.sql` (auto-generated media table seed)
+- Initialized `package.json` and installed `@supabase/supabase-js` for upload script
+- Updated `v1_BACKEND.md` — A5 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A5 marked 🟢
+
+**Decisions Made:**
+- DEC-009: Skipped project thumbnails/screenshots — old portfolio used CSS/canvas-generated visuals, not static images. Set `thumbnail_url` to NULL; will add real images during frontend phase
+- DEC-010: Programmatic image upload via Node.js script using service_role key, rather than manual Dashboard uploads
+
+**Blockers / Issues:**
+- None
+
+**Next Session Plan:**
+- Begin v1.0 Stage A6: Data Access Layer (typed fetch functions)
+  - Set up Supabase client (browser + SSR)
+  - Generate TypeScript types from Supabase schema
+  - Write `getProfile()`, `getProjects()`, `getSkills()`, `getMedia()` functions
+  - Test all fetch functions return correct typed data
+
+---
+
+### 2026-09-11 (Day 4) — v1.0 Backend
+**Stage(s):** A6 — Data Access Layer
+
+**Work Done:**
+- Completed Stage A6 (all 8 tasks ✅)
+  - Hand-wrote TypeScript types from `SCHEMA_BLUEPRINT.md` → `src/types/database.types.ts`
+    - Full `Database` interface for Supabase client generic typing
+    - Separate `Row`, `Insert`, `Update` types for all 4 tables
+    - `SocialLinks` interface for profile JSONB column
+  - Created Supabase browser client → `src/lib/supabase/client.ts`
+    - Uses `createBrowserClient()` from `@supabase/ssr`
+    - For Client Components (`'use client'`)
+  - Created Supabase server client → `src/lib/supabase/server.ts`
+    - Uses `createServerClient()` from `@supabase/ssr` with cookie handling
+    - For Server Components, Route Handlers, Server Actions
+  - Wrote 8 typed fetch functions across 4 data modules:
+    - `getProfile()` — single row, returns `Profile | null`
+    - `getProjects()` — all published, ordered by display_order
+    - `getFeaturedProjects()` — featured only
+    - `getProjectBySlug(slug)` — single project by URL slug
+    - `getSkills()` — all skills, ordered by category + display_order
+    - `getSkillsByCategory()` — grouped by category → `Record<string, Skill[]>`
+    - `getMedia()` — all media, newest first
+    - `getMediaByType(type)` — filtered by image/video/document
+  - All functions accept optional `client` parameter for dependency injection
+  - Barrel export at `src/lib/data/index.ts`
+  - Created verification script (`scripts/test_data_layer.ts`) — **15/15 tests passed**
+  - Installed `@supabase/ssr`, `typescript`, `tsx`
+- Updated `v1_BACKEND.md` — A6 marked 🟢, Phase A marked 🟢 Complete
+- Updated `MASTER_PROGRESS.md` — A6 marked 🟢, v1.0 marked 🟡 In Progress, Merge History updated
+- Merged `dev` → `main` for Phase A completion (A1–A6)
+
+**Decisions Made:**
+- DEC-011: Hand-wrote types instead of using `supabase gen types` CLI — faster, equally accurate for 4 simple tables, avoids CLI setup before Next.js exists
+- DEC-012: All fetch functions accept optional Supabase client parameter — enables dependency injection from either server or browser client in Next.js, plus standalone usage in scripts
+
+**Blockers / Issues:**
+- IDE shows lint errors for `@/` path alias, `next/headers`, `@types/node` — expected since Next.js project doesn't exist yet (Stage B1). All code executes correctly via `tsx`.
+
+**Next Session Plan:**
+- Begin v1.0 Stage B1: Next.js Scaffold
+  - Create Next.js + TypeScript + Tailwind project
+  - Set up App Router folder structure (entry, developer, creative, story, admin routes)
+  - Connect env vars
+  - Set up `@/` path alias (resolves current lint errors)
+  - Move `src/` files into the Next.js project structure
 
 ---

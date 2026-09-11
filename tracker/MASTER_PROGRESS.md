@@ -1,10 +1,10 @@
 # 🗺️ Master Progress — Portfolio Platform
 
-> **Last Updated:** 2026-09-11
+> **Last Updated:** 2026-09-11 (Phase A Complete — merged to main)
 
 ---
 
-## v1.0 — Backend 🔴
+## v1.0 — Backend 🟡
 
 > **Goal:** Build and prove the entire backend before any UI exists.
 
@@ -13,9 +13,9 @@
 | **A — Backend Foundation** | A1 | Supabase Project Setup (hosted, free tier) | 🟢 | — |
 | | A2 | Core Schema Design (profile, projects, skills, media) | 🟢 | A1 |
 | | A3 | Row Level Security (RLS policies) | 🟢 | A2 |
-| | A4 | Auth Setup (Admin account, admin-only RLS) | 🔴 | A3 |
-| | A5 | Seed Data (Real/realistic content) | 🔴 | A2, A3 |
-| | A6 | Data Access Layer (typed fetch functions) | 🔴 | A5 |
+| | A4 | Auth Setup (Admin account, admin-only RLS) | 🟢 | A3 |
+| | A5 | Seed Data (Real/realistic content) | 🟢 | A2, A3 |
+| | A6 | Data Access Layer (typed fetch functions) | 🟢 | A5 |
 | **B — Frontend Foundation** | B1 | Next.js Scaffold (routing skeleton, env vars) | 🔴 | A6 |
 | | B2 | Prove Data Connection (render seeded data) | 🔴 | B1 |
 | | B3 | Boot Loader & Entry Page | 🔴 | B2 |
@@ -66,4 +66,5 @@
 
 | Date | Version | Branch Merged | Tag | Notes |
 |---|---|---|---|---|
-| — | — | — | — | No merges yet |
+| 2026-09-11 | v1.0 (Phase A: A1–A6) | `dev` → `main` | — | Mid-v1 sync: Phase A (Backend Foundation) complete. Schema, RLS, Auth, Seed Data, and Data Access Layer merged to main. |
+| 2026-09-11 | v1.0 (A1–A3) | `dev` → `main` | — | Mid-v1 sync: Schema, RLS policies, and project setup merged to main. Default repo branch is `main`. |

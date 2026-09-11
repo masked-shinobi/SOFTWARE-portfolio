@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-software",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masked-shinobi/SOFTWARE-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masked-shinobi/SOFTWARE-portfolio/issues"
+  },
+  "homepage": "https://github.com/masked-shinobi/SOFTWARE-portfolio#readme",
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}

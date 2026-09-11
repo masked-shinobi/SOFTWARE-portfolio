@@ -91,3 +91,53 @@
 **Consequences:** Tables are locked down from day one. The anon key can only read, never write. Unpublished projects are invisible to the public. Admin writes are impossible until A4 (by design — forces us to complete auth before any content management).
 
 ---
+
+### DEC-008: Admin Auth — Single Hardcoded UUID, No Role Column
+**Date:** 2026-09-11  
+**Stage:** A4 — Auth Setup  
+**Context:** We need admin write access via RLS. Options: (a) hardcode the admin's `auth.uid()` in each policy, (b) add a `role` column to a `users` table and check that, or (c) use Supabase custom claims/JWT.  
+**Decision:** Hardcode the admin UUID (`428d026c-33dd-4845-a903-4831adfb7e56`) directly in all RLS policies. This is a single-user portfolio — there will only ever be one admin.  
+**Alternatives Considered:** Role column in a users table (overkill for single admin); Supabase custom claims (adds JWT complexity); service_role key for all writes (bypasses RLS entirely, defeats the purpose).  
+**Consequences:** Simple and secure. If the admin account is ever recreated, the UUID in all policies must be updated. No need for a users table or role management. Any other authenticated user is denied by default.
+
+---
+
+### DEC-009: Skip Project Thumbnails — Add During Frontend Phase
+**Date:** 2026-09-11  
+**Stage:** A5 — Seed Data  
+**Context:** The old portfolio used CSS/canvas-generated visuals (animated bubbles, SVG badges) instead of static screenshots for project cards. Generating or capturing 18 static thumbnails would delay A5 completion with no backend value.  
+**Decision:** Set `thumbnail_url` and `images` to NULL/empty for all 18 projects. Add real screenshots or generated images during the frontend build phase (v2.0) when we know exactly what format and dimensions are needed.  
+**Alternatives Considered:** Generate AI placeholder thumbnails now (premature — don't know final card dimensions); manually screenshot each GitHub repo (time-consuming, low quality).  
+**Consequences:** Project rows have no image data until frontend development. This is acceptable because A5's purpose is proving the data pipeline works, not producing final assets.
+
+---
+
+### DEC-010: Programmatic Image Upload via Node.js Script
+**Date:** 2026-09-11  
+**Stage:** A5 — Seed Data  
+**Context:** 9 local images needed to be uploaded to the Supabase `portfolio` storage bucket. Could upload manually via Dashboard or automate with a script.  
+**Decision:** Wrote `scripts/upload_images.mjs` using `@supabase/supabase-js` with the `service_role` key to upload all 9 images programmatically. Script also auto-generates `005_seed_media.sql` with the media table seed data.  
+**Alternatives Considered:** Manual upload via Supabase Dashboard (not reproducible, no record of what was uploaded).  
+**Consequences:** Uploads are reproducible and documented. Script can be re-run with `upsert: true` if images need updating. Media seed SQL is auto-generated with correct public URLs and file sizes.
+
+---
+
+### DEC-011: Hand-Written TypeScript Types (No CLI Gen)
+**Date:** 2026-09-11  
+**Stage:** A6 — Data Access Layer  
+**Context:** Supabase offers `supabase gen types typescript` to auto-generate database types. However, the CLI needs to be linked to the project, and we only have 4 simple tables with well-documented schemas.  
+**Decision:** Hand-write the TypeScript types in `src/types/database.types.ts` based on `SCHEMA_BLUEPRINT.md`. Include a full `Database` interface compatible with `createClient<Database>()`, plus separate `Row`, `Insert`, and `Update` type aliases for each table.  
+**Alternatives Considered:** Auto-generate via Supabase CLI (requires project linking and CLI installation before Next.js exists — overhead with no accuracy benefit for 4 tables).  
+**Consequences:** Types are version-controlled and readable. If the schema changes, types must be updated manually (but schema changes also require a migration, so this is a natural checkpoint). Can switch to auto-generation in the future if table count grows significantly.
+
+---
+
+### DEC-012: Injectable Supabase Client in Fetch Functions
+**Date:** 2026-09-11  
+**Stage:** A6 — Data Access Layer  
+**Context:** Data access functions need a Supabase client. In Next.js, the client differs between Server Components (cookie-aware) and Client Components (browser-based). Outside Next.js (scripts, tests), a standalone client is needed.  
+**Decision:** All fetch functions accept an optional `client` parameter. When called from Next.js, pass the server or browser client. When called standalone (scripts, tests), omit the parameter and a fallback client is created automatically using `@supabase/supabase-js`.  
+**Alternatives Considered:** Separate function signatures for server vs. client; global singleton client (breaks SSR cookie handling); always require client parameter (inconvenient for scripts).  
+**Consequences:** Maximum flexibility — same functions work in Server Components, Client Components, and standalone scripts. The optional parameter pattern avoids coupling to any specific runtime.
+
+---

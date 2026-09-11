@@ -1,0 +1,216 @@
+================================================================================
+PHYSICAL ASSET & COPY-PASTE MIGRATION CHECKLIST
+Project: Sanjay Baskar Portfolio Migration
+Target Platform: Supabase (Stage A5 - Seed Data)
+================================================================================
+
+--------------------------------------------------------------------------------
+1. IMAGES & MEDIA TO DOWNLOAD / MIGRATE
+--------------------------------------------------------------------------------
+
+[A] PROFILE & AVATAR MEDIA:
+- [ ] Profile / Mascot Avatar:
+      Source File: public/images/Hero-anime.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/Hero-anime.png
+      Target Path in Supabase Storage: portfolio/avatar/avatar.png
+      Alt Text: "Sanjay Baskar - Anime Character Avatar"
+
+- [ ] Hero Light Sticker:
+      Source File: public/images/Hero-image.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/Hero-image.png
+      Target Path: portfolio/assets/Hero-image.png
+
+- [ ] Hero Dark Sticker:
+      Source File: public/images/Hero-image-dark.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/Hero-image-dark.png
+      Target Path: portfolio/assets/Hero-image-dark.png
+
+- [ ] Sanjay AI Mascot Avatar:
+      Source File: public/images/Chat-image.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/Chat-image.png
+      Target Path: portfolio/assets/Chat-image.png
+
+- [ ] Contact Card Logo:
+      Source File: public/images/Contact-logo.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/Contact-logo.png
+      Target Path: portfolio/assets/Contact-logo.png
+
+[B] FLOATING STICKERS & BADGES:
+- [ ] Shinobi Black VS Code Theme Banner:
+      Source File: public/images/floating-stickers/image.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/floating-stickers/image.png
+      Target Path: portfolio/stickers/shinobi-theme.png
+
+- [ ] Floating Sticker 1:
+      Source File: public/images/floating-stickers/sticker-1.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/floating-stickers/sticker-1.png
+      Target Path: portfolio/stickers/sticker-1.png
+
+- [ ] Floating Sticker 2:
+      Source File: public/images/floating-stickers/sticker-2.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/floating-stickers/sticker-2.png
+      Target Path: portfolio/stickers/sticker-2.png
+
+- [ ] Floating Sticker 3:
+      Source File: public/images/floating-stickers/sticker-3.png
+      Remote URL: https://gtlhqudjdicgsxtbwcjs.supabase.co/storage/v1/object/public/portfolio-images/floating-stickers/sticker-3.png
+      Target Path: portfolio/stickers/sticker-3.png
+
+[C] RESUME / CV DOCUMENT:
+- [ ] Resume PDF:
+      Current Google Drive View Link:
+      https://drive.google.com/file/d/1QGokMLQhPTLxFkUjbR9Es9ofhuaZsnsl/view?usp=drive_link
+      Recommended Action: Download PDF directly and upload to Supabase Storage at:
+      portfolio/resume/resume.pdf
+
+[D] PROJECT THUMBNAILS & SCREENSHOTS (18 Projects to capture):
+* Note: In the existing site, projects used interactive SVG badges and dynamic cards rather than static screenshots. You should capture or generate 1 thumbnail (16:9, ~1280x720) and 1-2 screenshots per project:
+
+- [ ] 01. AI Resume Analyzer
+      Target Folder: portfolio/projects/ai-resume-analyzer/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/AI-RESUME-ANALYSER
+
+- [ ] 02. Advanced RAG — Resembler
+      Target Folder: portfolio/projects/advanced-rag-resembler/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/MinorProject_resembler
+
+- [ ] 03. RAG Architecture
+      Target Folder: portfolio/projects/rag-architecture/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/minor_rag_architecture
+
+- [ ] 04. MCQ Master
+      Target Folder: portfolio/projects/mcq-master/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/MCQ_test_Maker_website
+
+- [ ] 05. Shinobi Black VS Code Theme
+      Target Folder: portfolio/projects/shinobi-black-theme/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Marketplace: https://marketplace.visualstudio.com/items?itemName=SanjayBaskar.shinobi-black-theme
+
+- [ ] 06. CyberSecurity Web Centinel
+      Target Folder: portfolio/projects/cybersecurity-web-centinel/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/CyberSecurity_Web_Centinel
+
+- [ ] 07. GSAP 3D Website
+      Target Folder: portfolio/projects/gsap-3d-website/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/GSAP-website-3d
+
+- [ ] 08. Ecommerce Devin
+      Target Folder: portfolio/projects/ecommerce-devin/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/Ecommerce-devin-ai-workflow
+
+- [ ] 09. DevOps WebApp Cloud
+      Target Folder: portfolio/projects/devops-webapp-cloud/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/devops_webapp_cloud
+
+- [ ] 10. Tic Tac Toe Docker
+      Target Folder: portfolio/projects/tic-tac-toe-docker/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/Tic-Tac-Toe-Docker
+
+- [ ] 11. Food Delivery App
+      Target Folder: portfolio/projects/food-delivery-app/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/Food-delivery-app-reactnative
+
+- [ ] 12. Android File Manager
+      Target Folder: portfolio/projects/android-file-manager/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/file-manager-app
+
+- [ ] 13. Organ Donation Platform
+      Target Folder: portfolio/projects/organ-donation-platform/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/Organ-Donation-Platform-BlockChain
+
+- [ ] 14. Email Simulator
+      Target Folder: portfolio/projects/email-simulator/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/email-simulator-CN
+
+- [ ] 15. DSA in C++
+      Target Folder: portfolio/projects/dsa-in-cpp/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/DSA-C-with-gtest
+
+- [ ] 16. PTS Algorithm
+      Target Folder: portfolio/projects/pts-algorithm/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/PTS-Algorithm
+
+- [ ] 17. Python Unit Testing
+      Target Folder: portfolio/projects/python-unit-testing/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/code-unit-testing
+
+- [ ] 18. SRM Placement Compass
+      Target Folder: portfolio/projects/srm-placement-compass/
+      Files to prepare: thumbnail.png, screenshot-1.png
+      Repo: https://github.com/masked-shinobi/srm-placement-compass
+
+
+--------------------------------------------------------------------------------
+2. TEXT & COPY BLOCKS TO REVIEW
+--------------------------------------------------------------------------------
+
+[A] PROFILE HEADLINE & BIOS:
+- Headline: "Design Engineer • Cloud & Security Developer"
+- Tagline: "Non-linear thinking for a linear world."
+- Short Bio:
+  "Design Engineer building digital products that blend creativity with robust engineering. Non-linear thinking for a linear world."
+- Long Bio:
+  "I'm a Design Engineer and 3rd-year Computer Science student at SRM Institute of Science and Technology (SRM IST), Chennai, maintaining a CGPA of 9.88 with Merit Scholarship. I specialize in building digital experiences at the intersection of creative frontends, scalable cloud platforms, and AI-driven intelligence. My experience spans AI/ML research at King Faisal University, web engineering at CJ Network, and Python software development at Infosys."
+
+[B] ACADEMIC & EDUCATION TIMELINE (For Creative / Timeline experience):
+- School (2019 — 2023):
+  Institution: Adharsh Vidhyalaya Public School, Anthiyur, Tamil Nadu
+  Milestones:
+  * 2021: Grade X (Secondary School Certificate)
+  * 2023: Grade XII (Higher Secondary Certificate)
+- College (2023 — 2027 Ongoing):
+  Institution: SRM Institute of Science and Technology, Kattankulathur, Chennai, Tamil Nadu
+  Degree: Bachelor of Technology in Computer Science & Engineering
+  Milestones:
+  * 2023: Started B.Tech CSE (Kattankulathur Campus)
+  * Ongoing: Current CGPA: 9.88 with Merit Scholarship
+
+[C] WORK EXPERIENCE & INTERNSHIPS (From Chat Assistant Knowledge Base):
+- 1. Research Intern — King Faisal University (AI/ML research)
+- 2. Web Development Intern — CJ Network
+- 3. Python Development Intern — Infosys
+
+[D] EXTERNAL EMBEDS & TOOLS:
+- Notion DSA Spreadsheet:
+  Live URL: https://app.notion.com/p/dsa-spreadsheet-sanjaybaskar/73b3a11dd45d8250922601672faf0c8c?v=8d43a11dd45d822db96b08a00fbbd6ef&source=copy_link
+  Embed iframe URL: https://dsa-spreadsheet-sanjaybaskar.notion.site/ebd//9a13a11dd45d82439717013153949f27
+
+
+--------------------------------------------------------------------------------
+3. GAP & MISSING ASSET ANALYSIS
+--------------------------------------------------------------------------------
+
+1. Project Live URLs:
+   - Only 1 project ("Shinobi Black VS Code Theme") has an external production live link (VS Code Marketplace).
+   - 17 projects currently only have GitHub repository links. If any of these are deployed (e.g. on Vercel, Render, or Netlify), their `live_url` fields in `seed_data.json` need to be updated.
+
+2. Project Media / Screenshots:
+   - The old portfolio utilized programmatic CSS/canvas bubbles and SVG tech icons instead of static screenshot images for each project.
+   - For Supabase storage, you will need to take 1 screenshot per project (or produce a mockup image) and upload it to `portfolio/projects/<slug>/thumbnail.png`.
+
+3. Social & Contact Details:
+   - LinkedIn: https://www.linkedin.com/in/masked-shinobi-30a289377/
+   - GitHub: https://github.com/masked-shinobi
+   - Email: maskedprogrammer.in@gmail.com
+   - LeetCode / Twitter: Not present in the old site. If you have active LeetCode, X/Twitter, or custom domain URLs, supply them to `social_links` in `seed_data.json`.
+
+4. Resume PDF:
+   - The resume link points to Google Drive (`1QGokMLQhPTLxFkUjbR9Es9ofhuaZsnsl`). To serve it seamlessly from Supabase, download the PDF file and upload it to the `portfolio` bucket under `portfolio/resume/resume.pdf`.
+================================================================================
