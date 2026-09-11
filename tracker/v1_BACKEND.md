@@ -8,60 +8,73 @@
 
 ## Phase A — Backend Foundation
 
-### A1. Supabase Project Setup 🔴
+### A1. Supabase Project Setup 🟢
 > **Track:** Backend | **Depends on:** Nothing
 
 **Tasks:**
-- [ ] Create hosted Supabase project (free tier)
-- [ ] Note down API URL, `anon` key, `service_role` key
-- [ ] Create `.env.local` with Supabase credentials
-- [ ] Create `.gitignore` (node_modules, .env*, .next, etc.)
-- [ ] Verify Supabase Studio is accessible via dashboard
+- [x] Create hosted Supabase project (free tier)
+- [x] Note down API URL, `anon` key, `service_role` key
+- [x] Create `.env.local` with Supabase credentials
+- [x] Create `.gitignore` (node_modules, .env*, .next, etc.)
+- [x] Verify Supabase Studio is accessible via dashboard
 
 **Notes:**
 - Using hosted Supabase to start — faster than configuring Docker on day one.
 - Docker local dev parity is deferred to Phase F (post-v3 polish).
 - No Next.js at this stage — backend only.
+- Project ref: `jhrlkrkwynsucdrodxza`
+- Dashboard: https://supabase.com/dashboard/project/jhrlkrkwynsucdrodxza
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---
 
-### A2. Core Schema Design 🔴
+### A2. Core Schema Design 🟢
 > **Track:** Backend | **Depends on:** A1
 
 **Tasks:**
-- [ ] Design `profile` table (bio, headline, social_links, resume_metadata)
-- [ ] Design `projects` table (title, description, tech_stack, links, images[], featured)
-- [ ] Design `skills` table (name, category, proficiency — kept minimal)
-- [ ] Design `media` table (storage_ref, alt_text, type)
-- [ ] Write SQL migration files (not manual clicks)
-- [ ] Run migrations against local Supabase
+- [x] Design `profile` table (bio, headline, social_links, resume_metadata)
+- [x] Design `projects` table (title, description, tech_stack, links, images[], featured)
+- [x] Design `skills` table (name, category, proficiency — kept minimal)
+- [x] Design `media` table (storage_ref, alt_text, type)
+- [x] Write SQL migration files (not manual clicks)
+- [x] Run migrations against hosted Supabase
 
 **Notes:**
 - Keep it small. `creative_blocks` and `resume_sections` come later, NOT now.
 - Use SQL migration files for reproducibility.
+- Blueprint saved at `tracker/SCHEMA_BLUEPRINT.md`
+- Migration file created at `supabase/migrations/001_core_schema.sql`
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---
 
-### A3. Row Level Security 🔴
+### A3. Row Level Security 🟢
 > **Track:** Backend | **Depends on:** A2
 
 **Tasks:**
-- [ ] Enable RLS on every table
-- [ ] Public policy: `SELECT` only on published rows
-- [ ] Confirm anon key CANNOT insert, update, or delete (test via Studio SQL)
-- [ ] Document RLS policies applied
+- [x] Enable RLS on every table
+- [x] Public policy: `SELECT` only on published rows
+- [x] Confirm anon key CANNOT insert, update, or delete (test via REST API)
+- [x] Document RLS policies applied
 
 **Notes:**
 - Do this BEFORE writing any frontend fetch code.
 - Build against real security constraints from day one.
+- Migration file: `supabase/migrations/002_rls_policies.sql`
+- Policies applied:
+  - `profile_public_read` — SELECT for anon, all rows
+  - `projects_public_read` — SELECT for anon, `published = true` only
+  - `skills_public_read` — SELECT for anon, all rows
+  - `media_public_read` — SELECT for anon, all rows
+  - `portfolio_bucket_public_read` — SELECT on storage.objects for anon, bucket `portfolio`
+- No INSERT/UPDATE/DELETE policies → RLS default deny blocks all writes for anon
+- Verified via REST API: INSERT returns 401, UPDATE/DELETE return 0 rows, unpublished projects hidden
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

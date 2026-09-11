@@ -81,3 +81,13 @@
 **Consequences:** A1 becomes a 10-minute setup (create project, grab keys, `.env.local`) instead of a Docker debugging session. Docker gets added in Phase F when everything works and offline parity actually matters.
 
 ---
+
+### DEC-007: RLS Strategy — Deny-All Default with Public SELECT Only
+**Date:** 2026-09-11  
+**Stage:** A3 — Row Level Security  
+**Context:** With RLS enabled, we need to decide what access pattern to use. The anon role (public visitors) should only read published content. Admin write access requires auth, which isn't set up until A4.  
+**Decision:** Enable RLS on all tables (deny-all by default). Create SELECT-only policies for the `anon` role. `projects` filters on `published = true`; other tables allow all rows. No INSERT/UPDATE/DELETE policies — writes are blocked by default. Admin write policies will be added in A4 when `auth.uid()` is available.  
+**Alternatives Considered:** Creating placeholder admin write policies now with a dummy UUID check; using Supabase's built-in "Enable RLS" toggle without explicit policies.  
+**Consequences:** Tables are locked down from day one. The anon key can only read, never write. Unpublished projects are invisible to the public. Admin writes are impossible until A4 (by design — forces us to complete auth before any content management).
+
+---
