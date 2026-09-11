@@ -30,22 +30,24 @@
 
 ---
 
-### A2. Core Schema Design 🔴
+### A2. Core Schema Design 🟢
 > **Track:** Backend | **Depends on:** A1
 
 **Tasks:**
-- [ ] Design `profile` table (bio, headline, social_links, resume_metadata)
-- [ ] Design `projects` table (title, description, tech_stack, links, images[], featured)
-- [ ] Design `skills` table (name, category, proficiency — kept minimal)
-- [ ] Design `media` table (storage_ref, alt_text, type)
-- [ ] Write SQL migration files (not manual clicks)
-- [ ] Run migrations against local Supabase
+- [x] Design `profile` table (bio, headline, social_links, resume_metadata)
+- [x] Design `projects` table (title, description, tech_stack, links, images[], featured)
+- [x] Design `skills` table (name, category, proficiency — kept minimal)
+- [x] Design `media` table (storage_ref, alt_text, type)
+- [x] Write SQL migration files (not manual clicks)
+- [x] Run migrations against hosted Supabase
 
 **Notes:**
 - Keep it small. `creative_blocks` and `resume_sections` come later, NOT now.
 - Use SQL migration files for reproducibility.
+- Blueprint saved at `tracker/SCHEMA_BLUEPRINT.md`
+- Migration file created at `supabase/migrations/001_core_schema.sql`
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

@@ -65,28 +65,32 @@
 ---
 
 ### 2026-09-11 (Day 2) — v1.0 Backend
-**Stage(s):** A1 — Supabase Project Setup
+**Stage(s):** A1 — Supabase Project Setup, A2 — Core Schema Design
 
 **Work Done:**
 - Completed Stage A1 (all 5 tasks ✅)
-- Created hosted Supabase project (free tier, ref: `jhrlkrkwynsucdrodxza`)
-- Noted API URL, anon key, and service_role key
-- Created `.env.local` with standard Next.js Supabase env var naming (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`)
-- Verified `.gitignore` already covers all needed patterns (node_modules, .env*, .next, etc.)
-- Verified Supabase project is live and responding (API returns auth-gated responses, not DNS/timeout errors)
-- Updated `v1_BACKEND.md` — A1 marked 🟢
-- Updated `MASTER_PROGRESS.md` — A1 row updated to 🟢
+  - Created hosted Supabase project (free tier, ref: `jhrlkrkwynsucdrodxza`)
+  - Created `.env.local` with Supabase keys
+  - Verified project is reachable
+- Completed Stage A2 (all 6 tasks ✅)
+  - Created schema blueprint document: `tracker/SCHEMA_BLUEPRINT.md` detailing all tables, types, JSON shapes, and seed preparation checklists
+  - Created SQL migration: `supabase/migrations/001_core_schema.sql` defining `profile`, `projects`, `skills`, `media`, and `portfolio` storage bucket
+  - Executed migration successfully on Supabase
+  - Verified `projects` table response via REST endpoint
+- Updated `v1_BACKEND.md` — A1 and A2 marked 🟢
+- Updated `MASTER_PROGRESS.md` — A1 and A2 marked 🟢
 
 **Decisions Made:**
-- Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL` — this is what `@supabase/supabase-js` expects (it appends `/rest/v1/`, `/auth/v1/`, etc. internally)
+- Used base URL format (`https://xxx.supabase.co`) for `NEXT_PUBLIC_SUPABASE_URL`
+- Created dedicated `tracker/SCHEMA_BLUEPRINT.md` as the single source of truth and data preparation guide for Stage A5
 
 **Blockers / Issues:**
 - None
 
 **Next Session Plan:**
-- Begin v1.0 Stage A2: Core Schema Design
-  - Design `profile`, `projects`, `skills`, `media` tables
-  - Write SQL migration files
-  - Run migrations against hosted Supabase
+- Begin v1.0 Stage A3: Row Level Security (RLS policies)
+  - Enable RLS on all four tables
+  - Apply public read-only policies for published content
+  - Verify anon key cannot perform INSERT/UPDATE/DELETE
 
 ---
