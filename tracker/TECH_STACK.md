@@ -52,14 +52,14 @@
 
 | Package | Version | Installed In |
 |---|---|---|
-| next | — | — |
-| react | — | — |
-| typescript | — | — |
-| tailwindcss | — | — |
+| next | 16.3.4 | B1 |
+| react | 19.2.8 | B1 |
+| typescript | 5.x | B1 |
+| tailwindcss | 4.x | B1 |
 | motion | — | — |
 | next-themes | — | — |
-| @supabase/supabase-js | — | — |
-| @supabase/ssr | — | — |
+| @supabase/supabase-js | 2.116.0 | A6 |
+| @supabase/ssr | 0.12.7 | A6 |
 | supabase (CLI) | — | — |
 | docker | — | — |
 | node | — | — |

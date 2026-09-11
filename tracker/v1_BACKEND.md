@@ -164,27 +164,31 @@
 
 ## Phase B — Frontend Foundation
 
-### B1. Next.js Scaffold 🔴
+### B1. Next.js Scaffold 🟢
 > **Track:** Frontend | **Depends on:** A6
 
 **Tasks:**
-- [ ] Create Next.js + TypeScript + Tailwind project
-- [ ] Set up App Router folder structure:
-  - [ ] `app/page.tsx` (Entry)
-  - [ ] `app/developer/layout.tsx` + `page.tsx`
-  - [ ] `app/developer/resume/page.tsx` (placeholder)
-  - [ ] `app/creative/layout.tsx` + `page.tsx`
-  - [ ] `app/story/page.tsx` (placeholder)
-  - [ ] `app/admin/layout.tsx` + `page.tsx`
-  - [ ] `app/admin/creative/page.tsx` (placeholder)
-- [ ] Connect env vars to local Supabase
-- [ ] Set up `experiences/`, `components/`, `lib/` folder structure
+- [x] Create Next.js + TypeScript + Tailwind project
+- [x] Set up App Router folder structure:
+  - [x] `app/page.tsx` (Entry)
+  - [x] `app/developer/layout.tsx` + `page.tsx`
+  - [x] `app/developer/resume/page.tsx` (placeholder)
+  - [x] `app/creative/layout.tsx` + `page.tsx`
+  - [x] `app/story/page.tsx` (placeholder)
+  - [x] `app/admin/layout.tsx` + `page.tsx`
+  - [x] `app/admin/creative/page.tsx` (placeholder)
+- [x] Connect env vars to local Supabase
+- [x] Set up `experiences/`, `components/`, `lib/` folder structure
 
 **Notes:**
-- Every route just shows its name on a blank page at this point.
-- Pure scaffold, no visual design.
+- Initialized Next.js 16.3.4 (App Router) with TypeScript, Tailwind CSS v4, and ESLint.
+- Restored and integrated existing data access layer (`src/lib/data`, `src/lib/supabase`, `src/types`).
+- Created placeholder routes for `/`, `/developer`, `/developer/resume`, `/creative`, `/story`, `/admin`, `/admin/creative`.
+- Set up directory structure: `src/components/`, `src/experiences/developer/`, `src/experiences/creative/`.
+- Verified production build compiles 100% cleanly (`npm run build`).
+- Verified all 15 data layer tests pass (`test_data_layer.ts`).
 
-**Completed:** —  
+**Completed:** 2026-09-11  
 **Blockers:** —
 
 ---

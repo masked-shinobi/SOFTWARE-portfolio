@@ -214,3 +214,42 @@
   - Move `src/` files into the Next.js project structure
 
 ---
+
+### 2026-09-11 (Day 5) — v1.0 Frontend Foundation
+**Stage(s):** B1 — Next.js Scaffold
+
+**Work Done:**
+- Completed Stage B1 (all tasks ✅)
+- Backed up existing `src/` (data layer & types) and initialized Next.js 16.3.4 (App Router) with TypeScript and Tailwind CSS v4
+- Restored data access layer files into `src/lib/` and `src/types/`
+- Re-installed dependencies: `@supabase/supabase-js`, `@supabase/ssr`, `tsx`
+- Created App Router route skeleton:
+  - `src/app/page.tsx` (Entry Page placeholder)
+  - `src/app/developer/layout.tsx` + `page.tsx` (Developer Experience placeholder)
+  - `src/app/developer/resume/page.tsx` (Adaptive Resume placeholder)
+  - `src/app/creative/layout.tsx` + `page.tsx` (Creative Experience placeholder)
+  - `src/app/story/page.tsx` (Story Experience placeholder)
+  - `src/app/admin/layout.tsx` + `page.tsx` (Admin Dashboard placeholder)
+  - `src/app/admin/creative/page.tsx` (Creative Canvas Editor placeholder)
+- Created directory structure:
+  - `src/components/` (shared components)
+  - `src/experiences/developer/` (developer experience modules)
+  - `src/experiences/creative/` (creative experience modules)
+- Cleaned up root layout and configured path aliases (`@/*` mapping to `./src/*`)
+- Verified production build: `npm run build` completed successfully (all 8 routes statically pre-rendered)
+- Verified data layer verification suite: all 15 tests passed (`test_data_layer.ts`)
+- Updated `v1_BACKEND.md`, `MASTER_PROGRESS.md`, `TECH_STACK.md`, `DECISIONS.md`
+
+**Decisions Made:**
+- DEC-013: Next.js 16.3.4 + App Router Scaffold in Existing Repository with Tailwind CSS v4 and TypeScript
+
+**Blockers / Issues:**
+- None. Production build and test suite are 100% green.
+
+**Next Session Plan:**
+- Begin v1.0 Stage B2: Prove Data Connection
+  - Call `getProjects()` on a plain page (in Server Component)
+  - Render seeded project titles as plain text
+  - Confirm RLS blocks writes from the frontend client
+  - Verify TypeScript types work end-to-end
+

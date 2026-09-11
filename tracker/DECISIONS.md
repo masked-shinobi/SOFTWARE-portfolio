@@ -141,3 +141,14 @@
 **Consequences:** Maximum flexibility — same functions work in Server Components, Client Components, and standalone scripts. The optional parameter pattern avoids coupling to any specific runtime.
 
 ---
+
+### DEC-013: Next.js 16.3.4 + App Router Scaffold in Existing Repository
+**Date:** 2026-09-11  
+**Stage:** B1 — Next.js Scaffold  
+**Context:** Needed to initialize Next.js into an existing workspace that already had `src/lib/` and `src/types/` from Phase A without corrupting data layer work.  
+**Decision:** Safely backed up `src/`, ran `create-next-app` with `--typescript --tailwind --app --src-dir --empty`, restored `src/lib/` and `src/types/`, installed Supabase dependencies, and established clean placeholder routes with `@/*` path mapping.  
+**Alternatives Considered:** Starting Next.js in a separate subdirectory and moving the whole repository into it.  
+**Consequences:** The root remains the single source of truth, git history is preserved, and the data access layer seamlessly integrates with App Router.
+
+---
+
