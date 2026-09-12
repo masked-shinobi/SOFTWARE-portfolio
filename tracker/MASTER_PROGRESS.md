@@ -17,7 +17,7 @@
 | | A5 | Seed Data (Real/realistic content) | 🟢 | A2, A3 |
 | | A6 | Data Access Layer (typed fetch functions) | 🟢 | A5 |
 | **B — Frontend Foundation** | B1 | Next.js Scaffold (routing skeleton, env vars) | 🟢 | A6 |
-| | B2 | Prove Data Connection (render seeded data) | 🔴 | B1 |
+| | B2 | Prove Data Connection (render seeded data) | 🟢 | B1 |
 | | B3 | Boot Loader & Entry Page | 🔴 | B2 |
 
 ---

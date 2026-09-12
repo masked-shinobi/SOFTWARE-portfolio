@@ -152,3 +152,14 @@
 
 ---
 
+### DEC-014: Checkpoint Verification via Dedicated Server Component Route & Client RLS Tester
+**Date:** 2026-09-12  
+**Stage:** B2 — Prove Data Connection  
+**Context:** We need an undeniable proof of connection between Supabase, our typed data access layer, Next.js Server Components, and client-side RLS enforcement before writing actual UI experiences in B3 and v2.0.  
+**Decision:** Implement a temporary `/proof` route containing a Server Component that fetches all 4 entities (profile, projects, skills, media) and an interactive Client Component that attempts write operations (INSERT, UPDATE, DELETE) using the anon key to verify security barriers live in the browser.  
+**Alternatives Considered:** Relying only on the node CLI script `test_data_layer.ts`; testing manually inside Supabase dashboard.  
+**Consequences:** Complete confidence in both SSR and CSR behaviors inside the real Next.js runtime environment. Full proof of RLS enforcement from frontend clients. Clean basis to build the Entry Page and Boot Loader in Stage B3.
+
+---
+
+

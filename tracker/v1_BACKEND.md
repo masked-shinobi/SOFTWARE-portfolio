@@ -193,20 +193,29 @@
 
 ---
 
-### B2. Prove Data Connection 🔴
+### B2. Prove Data Connection 🟢
 > **Track:** Frontend | **Depends on:** B1
 
 **Tasks:**
-- [ ] Call `getProjects()` on a plain page
-- [ ] Render seeded project titles as plain text
-- [ ] Confirm RLS blocks writes from the frontend client
-- [ ] Verify TypeScript types work end-to-end
+- [x] Call `getProjects()` on a plain page (in Server Component)
+- [x] Render seeded project titles as plain text
+- [x] Confirm RLS blocks writes from the frontend client
+- [x] Verify TypeScript types work end-to-end
 
 **Notes:**
-- This is a CHECKPOINT, not a feature.
-- Once real data renders anywhere, Phase A is proven end-to-end.
+- Created `/proof` route (`src/app/proof/page.tsx`) as a Server Component checkpoint.
+- Verified server-side data fetching via typed data access layer:
+  - `profile`: 1 row (Sanjay Baskar, headline, bio, avatar, resume, social links)
+  - `projects`: 18 published projects rendered with tech stack and slug metadata
+  - `skills`: 29 skills rendered across 6 categories
+  - `media`: 9 items rendered with public URLs and types
+- Created client-side interactive test component (`src/app/proof/rls-write-test.tsx`):
+  - Attempted `INSERT` with anon key: **Blocked by RLS** (`new row violates row-level security policy for table "projects"`)
+  - Attempted `UPDATE` with anon key: **0 rows affected / Blocked**
+  - Attempted `DELETE` with anon key: **0 rows affected / Blocked**
+- Verified TypeScript types flow cleanly end-to-end (`Profile`, `Project`, `Skill`, `Media` without `any` casts in data layer).
 
-**Completed:** —  
+**Completed:** 2026-09-12  
 **Blockers:** —
 
 ---

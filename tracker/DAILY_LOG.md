@@ -253,3 +253,37 @@
   - Confirm RLS blocks writes from the frontend client
   - Verify TypeScript types work end-to-end
 
+---
+
+### 2026-09-12 (Day 6) — v1.0 Frontend Foundation
+**Stage(s):** B2 — Prove Data Connection
+
+**Work Done:**
+- Completed Stage B2 (all 4 tasks ✅)
+- Created `/proof` route (`src/app/proof/page.tsx`) as a Server Component verifying end-to-end data flow:
+  - Fetched `profile` via `getProfile()`: 1 row (Sanjay Baskar, headline, bio, avatar, resume, 5 social links)
+  - Fetched `projects` via `getProjects()`: 18 published projects rendered with tech stack and slug metadata
+  - Fetched `skills` via `getSkillsByCategory()`: 29 skills rendered across 6 categories
+  - Fetched `media` via `getMedia()`: 9 items rendered with public URLs, MIME types, and file sizes
+- Built client-side RLS write test component (`src/app/proof/rls-write-test.tsx`):
+  - Verified browser anon key `INSERT` into `projects` is blocked by RLS (`new row violates row-level security policy for table "projects"`)
+  - Verified browser anon key `UPDATE` on `projects` affects 0 rows
+  - Verified browser anon key `DELETE` on `projects` affects 0 rows
+- Verified full production build passes (`npm run build`) with dynamic rendering for `/proof`
+- Verified end-to-end type safety: `Database` interface and Row types flow cleanly without casting
+- Updated `v1_BACKEND.md` and `MASTER_PROGRESS.md` (Stage B2 marked 🟢)
+
+**Decisions Made:**
+- DEC-014: Created dedicated `/proof` route with interactive client-side RLS test component to verify data pipeline before building UI features.
+
+**Blockers / Issues:**
+- None. All data connects smoothly from Supabase and RLS security policies hold on all client write attempts.
+
+**Next Session Plan:**
+- Begin v1.0 Stage B3: Boot Loader & Entry Page
+  - Build boot / loading animation
+  - Build Entry / Choice page UI (`/`)
+  - Add navigation routes to `/developer`, `/creative`, and `/story` (with graceful fallback/placeholder)
+  - Polish layout, transitions, and basic aesthetics
+
+
