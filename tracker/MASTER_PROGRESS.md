@@ -66,5 +66,6 @@
 
 | Date | Version | Branch Merged | Tag | Notes |
 |---|---|---|---|---|
+| 2026-09-12 | v1.0 (Full Release) | `dev` → `main` | `v1.0` | Official v1.0 Release: Phase A (Backend Foundation) & Phase B (Frontend Foundation) complete. Supabase schema, RLS, Auth, Seed data, Data Layer, Next.js 16 App Router scaffold, proof route, boot loader, dual-choice entry page, and automatic mobile viewport guard. |
 | 2026-09-11 | v1.0 (Phase A: A1–A6) | `dev` → `main` | — | Mid-v1 sync: Phase A (Backend Foundation) complete. Schema, RLS, Auth, Seed Data, and Data Access Layer merged to main. |
 | 2026-09-11 | v1.0 (A1–A3) | `dev` → `main` | — | Mid-v1 sync: Schema, RLS policies, and project setup merged to main. Default repo branch is `main`. |

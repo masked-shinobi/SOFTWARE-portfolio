@@ -256,4 +256,4 @@
 - [x] RLS is enforced and tested
 - [x] Auth works for admin operations
 - [x] Entry page routes to all experiences
-- [ ] `dev` branch merged to `main` and tagged `v1.0`
+- [x] `dev` branch merged to `main` and tagged `v1.0`
