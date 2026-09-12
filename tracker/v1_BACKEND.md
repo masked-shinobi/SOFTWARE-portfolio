@@ -225,22 +225,23 @@
 
 **Tasks:**
 - [x] Build boot/loading animation
-- [x] Build Entry/Choice page UI
-- [x] Add links to `/developer`, `/creative`, `/story`
-- [x] Story link gracefully handles 404 / placeholder state
-- [x] Basic styling and transitions
+- [x] Build Entry/Choice page UI (Dual Choice: `/developer`, `/creative`)
+- [x] Integrate screen width / viewport detector (`< 768px`)
+- [x] Dedicated Mobile Unsupported placeholder page (`MobileUnsupported`)
+- [x] Basic styling, glassmorphism, and transitions
 
 **Notes:**
 - Boot Loader: Full-screen typewriter animation of portfolio owner's name with blinking cursor, headline fade-in, glitch effect, and auto-transition after ~3s. "Skip →" button in bottom-right corner.
-- Entry/Choice Page: Three glassmorphism experience cards (Developer, Creative, Story) with staggered entrance, hover glow/scale effects, and accent colors per experience.
-- Story card has "Coming Soon" badge with dimmed styling; still navigable to placeholder page.
+- Entry/Choice Page: Refined to a clean **Dual-Choice Gateway** featuring two primary experience cards (Developer & Creative) side-by-side with staggered entrance, hover glow/scale effects, and dedicated accent colors (cyan for Developer, violet for Creative).
+- Story experience removed from entry choices as it will live inside Creative / Phase F scope.
+- Automatic Mobile Detection: Added `useViewportWidth` hook tracking mobile breakpoint (`< 768px`). When accessed on mobile devices or resized below 768px, the platform automatically presents the `MobileUnsupported` placeholder screen.
+- Mobile Guard Screen: Diagnostic readout with live detected viewport width (`{width}px`), minimum required width (`≥ 768px`), explanation of desktop optimization, and quick contact links (GitHub, LinkedIn, Email).
 - Dark premium aesthetic with gradient mesh background (animated orbs), grid overlay, and smooth motion transitions.
-- Used `motion` library for page transitions and stagger animations.
 - Profile data (name, headline) fetched server-side via `getProfile()` and passed to client component.
-- Files created: `src/components/boot-loader.tsx`, `src/components/experience-card.tsx`, `src/app/entry-client.tsx`
+- Files created: `src/components/boot-loader.tsx`, `src/components/experience-card.tsx`, `src/components/mobile-unsupported.tsx`, `src/lib/use-viewport-width.ts`, `src/app/entry-client.tsx`
 - Files modified: `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`
 - Google Fonts: Inter (sans-serif) + Fira Code (monospace) via `next/font/google`
-- Production build passes cleanly. All routes verified.
+- Production build passes cleanly (`npm run build`). Desktop and mobile viewports visually verified.
 
 **Completed:** 2026-09-12  
 **Blockers:** —

@@ -4,15 +4,18 @@ import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { BootLoader } from "@/components/boot-loader";
 import { ExperienceCard } from "@/components/experience-card";
+import { MobileUnsupported } from "@/components/mobile-unsupported";
+import { useViewportWidth } from "@/lib/use-viewport-width";
 
 // =============================================================================
 // Entry Client — Client Component managing boot → choice transition
 // =============================================================================
 // Receives profile data as props from the Server Component parent.
-// Shows the BootLoader first, then transitions to the choice page.
+// Shows the BootLoader first, then transitions to the 2-choice page (Developer & Creative).
+// Automatically detects mobile form factor (< 768px) and renders the
+// MobileUnsupported placeholder screen.
 // =============================================================================
 
-// SVG icons for each experience card
 function DeveloperIcon() {
   return (
     <svg
@@ -53,26 +56,6 @@ function CreativeIcon() {
   );
 }
 
-function StoryIcon() {
-  return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      <path d="M8 7h8" />
-      <path d="M8 11h6" />
-    </svg>
-  );
-}
-
 interface EntryClientProps {
   name: string;
   headline: string;
@@ -80,10 +63,23 @@ interface EntryClientProps {
 
 export function EntryClient({ name, headline }: EntryClientProps) {
   const [showBoot, setShowBoot] = useState(true);
+  const { width, isMobile, isInitialized } = useViewportWidth();
 
   const handleBootComplete = useCallback(() => {
     setShowBoot(false);
   }, []);
+
+  // Automatic Mobile Form Factor Guard:
+  // If viewport width is detected as mobile (< 768px), display the dedicated placeholder.
+  if (isInitialized && isMobile) {
+    return (
+      <MobileUnsupported
+        width={width}
+        name={name}
+        headline={headline}
+      />
+    );
+  }
 
   return (
     <>
@@ -99,7 +95,7 @@ export function EntryClient({ name, headline }: EntryClientProps) {
         )}
       </AnimatePresence>
 
-      {/* Choice Page Phase */}
+      {/* Choice Page Phase (2 Choices: Developer & Creative) */}
       <AnimatePresence>
         {!showBoot && (
           <motion.div
@@ -113,7 +109,6 @@ export function EntryClient({ name, headline }: EntryClientProps) {
               <div className="entry-page__bg">
                 <div className="entry-page__bg-orb entry-page__bg-orb--1" />
                 <div className="entry-page__bg-orb entry-page__bg-orb--2" />
-                <div className="entry-page__bg-orb entry-page__bg-orb--3" />
               </div>
               <div className="entry-page__grid" />
 
@@ -129,7 +124,7 @@ export function EntryClient({ name, headline }: EntryClientProps) {
                 <p className="entry-page__subtitle">Choose your experience</p>
               </motion.header>
 
-              {/* Experience Cards */}
+              {/* Experience Cards — 2 Choices */}
               <div className="entry-page__cards">
                 <ExperienceCard
                   title="Developer"
@@ -146,15 +141,6 @@ export function EntryClient({ name, headline }: EntryClientProps) {
                   icon={<CreativeIcon />}
                   variant="creative"
                   index={1}
-                />
-                <ExperienceCard
-                  title="Story"
-                  description="Immersive. Narrative. 3D. A journey through my story."
-                  href="/story"
-                  icon={<StoryIcon />}
-                  variant="story"
-                  comingSoon
-                  index={2}
                 />
               </div>
 

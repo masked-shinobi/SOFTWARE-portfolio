@@ -304,32 +304,34 @@
   - Headline fade-in and subtle glitch animation effect
   - Interactive "Skip →" button with keyboard accessibility
   - Smooth 3-second auto-transition to the main choice page
-- Created `ExperienceCard` component (`src/components/experience-card.tsx`):
-  - Responsive glassmorphic cards for all 3 pathways (Developer `/developer`, Creative `/creative`, Story `/story`)
-  - Themed glow accents per card: Cyan/Emerald for Developer, Violet/Fuchsia for Creative, Amber/Orange for Story
-  - Staggered entrance animations, hover micro-interactions, scale transforms, and dynamic action buttons
-  - Graceful "Coming Soon" badge and subtle dimmed state for Story experience
-- Created `EntryClient` orchestrator (`src/app/entry-client.tsx`):
-  - Manages boot sequence state and transitions
-  - Floating background gradient orbs and responsive grid overlays
-  - Profile header with status indicator and live role display
-  - Interactive keyboard navigation and sound effects ready
+- Refined Entry/Choice Page to a **Dual-Choice Gateway** (`src/app/entry-client.tsx`):
+  - Streamlined to two primary experience choices: **Developer** (`/developer`) and **Creative** (`/creative`)
+  - Third choice (Story / 3D) removed from entry cards as it will live inside the Creative experience / Phase F
+  - Grid updated to balanced 2-column desktop layout (`max-width: 760px`)
+- Implemented **Automatic Mobile Viewport Width Detector** (`src/lib/use-viewport-width.ts`):
+  - React hook listening to window dimensions and tracking mobile breakpoint (`< 768px`)
+  - SSR-safe with clean hydration
+- Built **Dedicated Mobile Unsupported Screen** (`src/components/mobile-unsupported.tsx`):
+  - Displays when viewport width is below 768px (phone form factor or resized window)
+  - Diagnostic specs showing detected width (e.g. `390px`), required width (`≥ 768px`), and mobile scope (`Phase F`)
+  - Informative copy explaining desktop requirement and quick-contact links (GitHub, LinkedIn, Email)
 - Refactored `src/app/page.tsx` as a Server Component:
   - Fetches live profile data from Supabase via `getProfile()`
   - Passes name and headline down to `EntryClient`
 - Verified visual presentation with headless browser subagent:
   - Boot loader typing sequence confirmed
-  - Card transitions and hover glow verified
-  - Responsive layout and typography verified
+  - 2-card desktop layout and hover physics verified
+  - Mobile detector triggered at 390px and responsive placeholder verified
 - Verified full production build (`npm run build`):
   - Exit code 0, all 9 routes compile cleanly
 - v1.0 Backend is now fully complete (Phase A & Phase B) 🟢
 
 **Decisions Made:**
 - DEC-015: Boot Loader & Entry Page Architecture with Server Component Data Fetching, Motion Transitions, and Experience Card Layout.
+- DEC-016: Dual Experience Gateway (2 Choices) & Automatic Mobile Viewport Guard.
 
 **Blockers / Issues:**
-- None. Build passes cleanly and visuals are verified.
+- None. Build passes cleanly and both desktop and mobile viewports are verified.
 
 **Next Session Plan:**
 - Merge `dev` into `main` and tag `v1.0` (as required by v1.0 completion checklist and branching rules)
@@ -337,3 +339,4 @@
 - Proceed to v2.0 Frontend Developer Style:
   - Stage C1: Developer Layout & Theme (CSS tokens, cursor)
   - Stage T1 / T2: Theming tokens and custom cursor configuration
+

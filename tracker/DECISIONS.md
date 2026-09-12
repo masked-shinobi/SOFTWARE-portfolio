@@ -165,13 +165,25 @@
 ### DEC-015: Boot Loader & Entry Page Architecture
 **Date:** 2026-09-12  
 **Stage:** B3 — Boot Loader & Entry Page  
-**Context:** The entry experience requires an atmospheric typewriter boot sequence that smoothly transitions into an interactive gateway choice screen with cards linking to the Developer, Creative, and Story pathways. The page must balance fast SSR data fetching with smooth Framer Motion animations.  
+**Context:** The entry experience requires an atmospheric typewriter boot sequence that smoothly transitions into an interactive gateway choice screen. The page must balance fast SSR data fetching with smooth Framer Motion animations.  
 **Decision:** 
 1. Keep `src/app/page.tsx` as an asynchronous Server Component that queries profile data via `getProfile()` directly from Supabase, passing minimal serializable props to a client orchestrator `EntryClient`.
 2. Encapsulate the boot animation inside `src/components/boot-loader.tsx` featuring variable-speed typewriter rendering, blinking cursor, terminal scanline aesthetics, and an accessible "Skip" button.
-3. Encapsulate pathways into modular `ExperienceCard` components with differentiated accent colors (cyan/emerald, violet/fuchsia, amber/orange) and responsive hover effects.
-4. Mark the Story experience as "Coming Soon" with subdued visual opacity while maintaining functional navigation to the `/story` placeholder.
-5. Use `motion` for physics-based spring transitions and stagger effects without blocking page hydrations.  
+3. Use `motion` for physics-based spring transitions and stagger effects without blocking page hydrations.  
 **Alternatives Considered:** Pure CSS animations (inflexible dynamic timing for typing sequence); loading boot sequence as a separate route with redirect (causes unnecessary URL changes and screen flash).  
 **Consequences:** Seamless single-route `/` experience, instantaneous server-side profile hydration, zero hydration errors, and modular components ready for reuse or styling evolution.
+
+---
+
+### DEC-016: Dual Experience Gateway (2 Choices) & Automatic Mobile Viewport Guard
+**Date:** 2026-09-12  
+**Stage:** B3 — Boot Loader & Entry Page  
+**Context:** The portfolio design was refined to clarify the entry choice model: the user chooses between the two primary environments — Developer (`/developer`) and Creative (`/creative`). The 3D Story experience belongs inside Creative / future scope, not as a 3rd top-level choice. Additionally, the desktop workstation nature of these experiences requires an automatic screen width detector for mobile form factors rather than presenting an unoptimized layout.  
+**Decision:** 
+1. Remove the 3rd card (Story) from the entry page; maintain exactly 2 primary choices: Developer and Creative, arranged in a balanced 2-column desktop grid.
+2. Implement a responsive viewport width detector hook `useViewportWidth()` (`MOBILE_BREAKPOINT = 768px`).
+3. Automatically render a dedicated `MobileUnsupported` placeholder screen whenever mobile width (< 768px) is detected on mount or window resize.
+4. Provide diagnostic readouts on the mobile screen (detected width, required width, Phase F mobile scope) along with quick contact links (GitHub, LinkedIn, Email) so mobile visitors are informed and connected.  
+**Alternatives Considered:** Letting the desktop layout collapse to a vertical stack on phones (poor user experience for dense code and spatial canvas interactions); checking user agent strings (fragile compared to real viewport dimensions).  
+**Consequences:** Crystal-clear dual choice on desktop, bulletproof automatic mobile detection, zero broken layouts on handheld devices, and transparent communication of the desktop-first workstation intent.
 
