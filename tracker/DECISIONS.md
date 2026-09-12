@@ -162,4 +162,16 @@
 
 ---
 
+### DEC-015: Boot Loader & Entry Page Architecture
+**Date:** 2026-09-12  
+**Stage:** B3 — Boot Loader & Entry Page  
+**Context:** The entry experience requires an atmospheric typewriter boot sequence that smoothly transitions into an interactive gateway choice screen with cards linking to the Developer, Creative, and Story pathways. The page must balance fast SSR data fetching with smooth Framer Motion animations.  
+**Decision:** 
+1. Keep `src/app/page.tsx` as an asynchronous Server Component that queries profile data via `getProfile()` directly from Supabase, passing minimal serializable props to a client orchestrator `EntryClient`.
+2. Encapsulate the boot animation inside `src/components/boot-loader.tsx` featuring variable-speed typewriter rendering, blinking cursor, terminal scanline aesthetics, and an accessible "Skip" button.
+3. Encapsulate pathways into modular `ExperienceCard` components with differentiated accent colors (cyan/emerald, violet/fuchsia, amber/orange) and responsive hover effects.
+4. Mark the Story experience as "Coming Soon" with subdued visual opacity while maintaining functional navigation to the `/story` placeholder.
+5. Use `motion` for physics-based spring transitions and stagger effects without blocking page hydrations.  
+**Alternatives Considered:** Pure CSS animations (inflexible dynamic timing for typing sequence); loading boot sequence as a separate route with redirect (causes unnecessary URL changes and screen flash).  
+**Consequences:** Seamless single-route `/` experience, instantaneous server-side profile hydration, zero hydration errors, and modular components ready for reuse or styling evolution.
 

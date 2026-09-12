@@ -286,4 +286,54 @@
   - Add navigation routes to `/developer`, `/creative`, and `/story` (with graceful fallback/placeholder)
   - Polish layout, transitions, and basic aesthetics
 
+---
 
+### 2026-09-12 (Day 7) — v1.0 Frontend Foundation (B3 Complete & v1.0 Milestone)
+**Stage(s):** B3 — Boot Loader & Entry Page
+
+**Work Done:**
+- Completed Stage B3 (all 5 tasks ✅)
+- Installed animation dependency: `motion` (v13.2.0)
+- Configured Google Fonts in root layout (`src/app/layout.tsx`):
+  - `Inter` (sans-serif variable) for body/display
+  - `Fira Code` (monospace variable) for terminal/code accents
+- Enhanced global styling system (`src/app/globals.css`):
+  - Custom scrollbars, glassmorphism utilities (`glass`, `glass-card`), glowing border gradients, scanlines, and animated mesh background
+- Created `BootLoader` component (`src/components/boot-loader.tsx`):
+  - Typewriter sequence displaying "Sanjay Baskar" with realistic variable typing delays and blinking cursor
+  - Headline fade-in and subtle glitch animation effect
+  - Interactive "Skip →" button with keyboard accessibility
+  - Smooth 3-second auto-transition to the main choice page
+- Created `ExperienceCard` component (`src/components/experience-card.tsx`):
+  - Responsive glassmorphic cards for all 3 pathways (Developer `/developer`, Creative `/creative`, Story `/story`)
+  - Themed glow accents per card: Cyan/Emerald for Developer, Violet/Fuchsia for Creative, Amber/Orange for Story
+  - Staggered entrance animations, hover micro-interactions, scale transforms, and dynamic action buttons
+  - Graceful "Coming Soon" badge and subtle dimmed state for Story experience
+- Created `EntryClient` orchestrator (`src/app/entry-client.tsx`):
+  - Manages boot sequence state and transitions
+  - Floating background gradient orbs and responsive grid overlays
+  - Profile header with status indicator and live role display
+  - Interactive keyboard navigation and sound effects ready
+- Refactored `src/app/page.tsx` as a Server Component:
+  - Fetches live profile data from Supabase via `getProfile()`
+  - Passes name and headline down to `EntryClient`
+- Verified visual presentation with headless browser subagent:
+  - Boot loader typing sequence confirmed
+  - Card transitions and hover glow verified
+  - Responsive layout and typography verified
+- Verified full production build (`npm run build`):
+  - Exit code 0, all 9 routes compile cleanly
+- v1.0 Backend is now fully complete (Phase A & Phase B) 🟢
+
+**Decisions Made:**
+- DEC-015: Boot Loader & Entry Page Architecture with Server Component Data Fetching, Motion Transitions, and Experience Card Layout.
+
+**Blockers / Issues:**
+- None. Build passes cleanly and visuals are verified.
+
+**Next Session Plan:**
+- Merge `dev` into `main` and tag `v1.0` (as required by v1.0 completion checklist and branching rules)
+- Push merge and tag to GitHub
+- Proceed to v2.0 Frontend Developer Style:
+  - Stage C1: Developer Layout & Theme (CSS tokens, cursor)
+  - Stage T1 / T2: Theming tokens and custom cursor configuration

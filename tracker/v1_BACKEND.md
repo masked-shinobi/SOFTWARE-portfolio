@@ -220,30 +220,39 @@
 
 ---
 
-### B3. Boot Loader & Entry Page 🔴
+### B3. Boot Loader & Entry Page 🟢
 > **Track:** Frontend | **Depends on:** B2
 
 **Tasks:**
-- [ ] Build boot/loading animation
-- [ ] Build Entry/Choice page UI
-- [ ] Add links to `/developer`, `/creative`, `/story`
-- [ ] Story link gracefully handles 404 / placeholder state
-- [ ] Basic styling and transitions
+- [x] Build boot/loading animation
+- [x] Build Entry/Choice page UI
+- [x] Add links to `/developer`, `/creative`, `/story`
+- [x] Story link gracefully handles 404 / placeholder state
+- [x] Basic styling and transitions
 
 **Notes:**
-- Keep animation simple at first, polish later once everything works.
+- Boot Loader: Full-screen typewriter animation of portfolio owner's name with blinking cursor, headline fade-in, glitch effect, and auto-transition after ~3s. "Skip →" button in bottom-right corner.
+- Entry/Choice Page: Three glassmorphism experience cards (Developer, Creative, Story) with staggered entrance, hover glow/scale effects, and accent colors per experience.
+- Story card has "Coming Soon" badge with dimmed styling; still navigable to placeholder page.
+- Dark premium aesthetic with gradient mesh background (animated orbs), grid overlay, and smooth motion transitions.
+- Used `motion` library for page transitions and stagger animations.
+- Profile data (name, headline) fetched server-side via `getProfile()` and passed to client component.
+- Files created: `src/components/boot-loader.tsx`, `src/components/experience-card.tsx`, `src/app/entry-client.tsx`
+- Files modified: `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`
+- Google Fonts: Inter (sans-serif) + Fira Code (monospace) via `next/font/google`
+- Production build passes cleanly. All routes verified.
 
-**Completed:** —  
+**Completed:** 2026-09-12  
 **Blockers:** —
 
 ---
 
 ## v1.0 Completion Checklist
 
-- [ ] All Phase A stages (A1–A6) are 🟢
-- [ ] All Phase B stages (B1–B3) are 🟢
-- [ ] Data flows from Supabase → Data Layer → Frontend correctly
-- [ ] RLS is enforced and tested
-- [ ] Auth works for admin operations
-- [ ] Entry page routes to all experiences
+- [x] All Phase A stages (A1–A6) are 🟢
+- [x] All Phase B stages (B1–B3) are 🟢
+- [x] Data flows from Supabase → Data Layer → Frontend correctly
+- [x] RLS is enforced and tested
+- [x] Auth works for admin operations
+- [x] Entry page routes to all experiences
 - [ ] `dev` branch merged to `main` and tagged `v1.0`

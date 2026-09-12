@@ -1,1 +1,564 @@
 @import "tailwindcss";
+
+/* =============================================================================
+   PORTFOLIO PLATFORM — Global Design Tokens & Entry Page Styles
+   =============================================================================
+   Dark-first premium design system. CSS custom properties for theming.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   CSS Custom Properties
+   --------------------------------------------------------------------------- */
+:root {
+  /* Base palette — deep dark */
+  --color-bg-primary: #06060a;
+  --color-bg-secondary: #0c0c14;
+  --color-bg-card: rgba(255, 255, 255, 0.03);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.06);
+
+  /* Text */
+  --color-text-primary: #e8e6f0;
+  --color-text-secondary: #9490a8;
+  --color-text-muted: #5a5672;
+
+  /* Accent colors for each experience */
+  --accent-developer: #60a5fa;
+  --accent-developer-glow: rgba(96, 165, 250, 0.15);
+  --accent-creative: #c084fc;
+  --accent-creative-glow: rgba(192, 132, 252, 0.15);
+  --accent-story: #34d399;
+  --accent-story-glow: rgba(52, 211, 153, 0.15);
+
+  /* Glassmorphism */
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-hover: rgba(255, 255, 255, 0.12);
+  --glass-blur: 16px;
+
+  /* Transitions */
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Spacing */
+  --entry-max-width: 1100px;
+}
+
+/* ---------------------------------------------------------------------------
+   Base Resets & Global Styles
+   --------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Prevent white flash before JS loads */
+html {
+  background-color: #06060a;
+}
+
+/* ---------------------------------------------------------------------------
+   Boot Loader Animations
+   --------------------------------------------------------------------------- */
+
+/* Typewriter cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Glitch effect — horizontal shift + color channel split */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  2% {
+    transform: translate(-2px, 1px);
+    text-shadow: 2px 0 #60a5fa, -2px 0 #c084fc;
+  }
+  4% {
+    transform: translate(2px, -1px);
+    text-shadow: -2px 0 #60a5fa, 2px 0 #c084fc;
+  }
+  6% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  42% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  44% {
+    transform: translate(3px, 0);
+    text-shadow: 2px 0 #34d399, -2px 0 #c084fc;
+  }
+  46% {
+    transform: translate(-1px, 1px);
+    text-shadow: -2px 0 #60a5fa, 1px 0 #34d399;
+  }
+  48% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+/* Subtle scanline effect */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* Float animation for background elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(6px) rotate(-1deg); }
+}
+
+/* ---------------------------------------------------------------------------
+   Boot Loader Styles
+   --------------------------------------------------------------------------- */
+.boot-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-primary);
+}
+
+.boot-loader__scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.boot-loader__scanline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(96, 165, 250, 0.08),
+    rgba(192, 132, 252, 0.08),
+    transparent
+  );
+  animation: scanline 4s linear infinite;
+}
+
+.boot-loader__name {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.boot-loader__name--glitch {
+  animation: glitch 3s ease-in-out infinite;
+}
+
+/* Typewriter cursor */
+.boot-loader__cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--accent-developer);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  animation: cursor-blink 0.8s step-end infinite;
+}
+
+.boot-loader__headline {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: var(--color-text-secondary);
+  margin-top: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.boot-loader__skip {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  background: none;
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-smooth);
+  letter-spacing: 0.05em;
+}
+
+.boot-loader__skip:hover {
+  color: var(--color-text-secondary);
+  border-color: var(--glass-border-hover);
+  background: var(--color-bg-card);
+}
+
+/* ---------------------------------------------------------------------------
+   Entry Page / Choice Page Styles
+   --------------------------------------------------------------------------- */
+
+.entry-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient mesh background */
+.entry-page__bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.entry-page__bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation: float 20s ease-in-out infinite;
+}
+
+.entry-page__bg-orb--1 {
+  width: 600px;
+  height: 600px;
+  background: var(--accent-developer);
+  top: -200px;
+  right: -200px;
+  animation-delay: 0s;
+}
+
+.entry-page__bg-orb--2 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-creative);
+  bottom: -150px;
+  left: -150px;
+  animation-delay: -7s;
+}
+
+.entry-page__bg-orb--3 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-story);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+  opacity: 0.07;
+}
+
+/* Grid pattern overlay */
+.entry-page__grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+/* Header section */
+.entry-page__header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.entry-page__name {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    135deg,
+    var(--color-text-primary) 0%,
+    var(--accent-developer) 50%,
+    var(--accent-creative) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.entry-page__headline {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--color-text-secondary);
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+.entry-page__subtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 1.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Cards container */
+.entry-page__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: var(--entry-max-width);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .entry-page__cards {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    gap: 1.25rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Experience Card
+   --------------------------------------------------------------------------- */
+.experience-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  cursor: pointer;
+  transition: all 0.4s var(--transition-smooth);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  min-height: 280px;
+}
+
+/* Shimmer border on hover */
+.experience-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    var(--card-accent, var(--accent-developer)) 50%,
+    transparent 70%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.4s var(--transition-smooth);
+}
+
+/* Glow effect under card on hover */
+.experience-card::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 40px;
+  background: var(--card-accent, var(--accent-developer));
+  filter: blur(30px);
+  opacity: 0;
+  transition: opacity 0.4s var(--transition-smooth);
+  border-radius: 50%;
+}
+
+.experience-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+}
+
+.experience-card:hover::before {
+  opacity: 0.6;
+}
+
+.experience-card:hover::after {
+  opacity: 0.2;
+}
+
+.experience-card:hover .experience-card__icon {
+  transform: scale(1.1);
+  color: var(--card-accent, var(--accent-developer));
+}
+
+/* Card icon */
+.experience-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.4s var(--transition-smooth);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: var(--card-accent-glow, var(--accent-developer-glow));
+}
+
+/* Card title */
+.experience-card__title {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: var(--color-text-primary);
+  transition: color 0.3s var(--transition-smooth);
+}
+
+.experience-card:hover .experience-card__title {
+  color: var(--card-accent, var(--accent-developer));
+}
+
+/* Card description */
+.experience-card__description {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+/* Coming Soon badge */
+.experience-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--card-accent, var(--accent-story));
+  border: 1px solid var(--card-accent, var(--accent-story));
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  opacity: 0.6;
+}
+
+/* Coming soon variant — dimmed card */
+.experience-card--coming-soon {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.experience-card--coming-soon:hover {
+  opacity: 0.65;
+  transform: translateY(-2px);
+}
+
+/* Card accent color variants */
+.experience-card--developer {
+  --card-accent: var(--accent-developer);
+  --card-accent-glow: var(--accent-developer-glow);
+}
+
+.experience-card--creative {
+  --card-accent: var(--accent-creative);
+  --card-accent-glow: var(--accent-creative-glow);
+}
+
+.experience-card--story {
+  --card-accent: var(--accent-story);
+  --card-accent-glow: var(--accent-story-glow);
+}
+
+/* Arrow indicator */
+.experience-card__arrow {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  transition: all 0.3s var(--transition-smooth);
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.experience-card:hover .experience-card__arrow {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--card-accent, var(--accent-developer));
+}
+
+/* ---------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------- */
+.entry-page__footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 3.5rem;
+  text-align: center;
+}
+
+.entry-page__footer-text {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}

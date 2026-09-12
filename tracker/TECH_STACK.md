@@ -1,7 +1,7 @@
 # 🛠️ Tech Stack & Dependencies
 
 > Confirmed technology choices and version constraints for the project.  
-> **Last Updated:** 2026-09-10
+> **Last Updated:** 2026-09-12
 
 ---
 
@@ -56,7 +56,7 @@
 | react | 19.2.8 | B1 |
 | typescript | 5.x | B1 |
 | tailwindcss | 4.x | B1 |
-| motion | — | — |
+| motion | 13.2.0 | B3 |
 | next-themes | — | — |
 | @supabase/supabase-js | 2.116.0 | A6 |
 | @supabase/ssr | 0.12.7 | A6 |
