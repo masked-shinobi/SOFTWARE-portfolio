@@ -10,18 +10,32 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const roles = rolesData.roles;
 
-export function RolesSection() {
+export interface RolesSectionProps {
+  theme?: "dark" | "light";
+}
+
+export function RolesSection({ theme: propTheme }: RolesSectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [systemTheme, setSystemTheme] = useState<"dark" | "light">("dark");
 
-  // Detect prefers-reduced-motion on mount
+  // Detect prefers-reduced-motion and prefers-color-scheme on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mqMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mqMotion.matches);
+    const motionHandler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mqMotion.addEventListener("change", motionHandler);
+
+    const mqTheme = window.matchMedia("(prefers-color-scheme: light)");
+    setSystemTheme(mqTheme.matches ? "light" : "dark");
+    const themeHandler = (e: MediaQueryListEvent) => setSystemTheme(e.matches ? "light" : "dark");
+    mqTheme.addEventListener("change", themeHandler);
+
+    return () => {
+      mqMotion.removeEventListener("change", motionHandler);
+      mqTheme.removeEventListener("change", themeHandler);
+    };
   }, []);
 
   useGSAP(
@@ -119,24 +133,35 @@ export function RolesSection() {
   // If reduced motion: show last slide only
   const visibleRoles = reducedMotion ? [roles[roles.length - 1]] : roles;
 
+  // Active theme calculation:
+  // For light screen: inverted colors (black background, white accents, white text)
+  // For dark screen: white background, black accents, black text
+  const activeTheme = propTheme || systemTheme;
+  const isLight = activeTheme === "light";
+
+  const bgClass = isLight ? "bg-black" : "bg-white";
+  const accentClass = isLight ? "bg-white" : "bg-black";
+  const textClass = isLight ? "text-white" : "text-black";
+  const descColor = isLight ? "#d1d5db" : "#6b7280";
+
   return (
     <section
       ref={sectionRef}
-      className="relative w-screen h-screen overflow-hidden bg-white"
+      className={`relative w-screen h-screen overflow-hidden transition-colors duration-500 ${bgClass}`}
       style={{ willChange: "transform" }}
     >
-      {/* ─── Top-right black bar accent ─── */}
+      {/* ─── Top-right bar accent ─── */}
       <div
-        className="absolute top-0 right-0 bg-black"
+        className={`absolute top-0 right-0 transition-colors duration-500 ${accentClass}`}
         style={{
           width: "65%",
           height: "7vh",
         }}
       />
 
-      {/* ─── Bottom-left black bar accent ─── */}
+      {/* ─── Bottom-left bar accent ─── */}
       <div
-        className="absolute bottom-0 left-0 bg-black"
+        className={`absolute bottom-0 left-0 transition-colors duration-500 ${accentClass}`}
         style={{
           width: "55%",
           height: "7vh",
@@ -149,7 +174,7 @@ export function RolesSection() {
           {/* "I am" prefix — stays fixed in place, never animates */}
           <div className="flex items-baseline gap-6 md:gap-10">
             <span
-              className="text-black select-none whitespace-nowrap"
+              className={`select-none whitespace-nowrap transition-colors duration-500 ${textClass}`}
               style={{
                 fontFamily: "var(--font-fredericka)",
                 fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
@@ -169,9 +194,8 @@ export function RolesSection() {
                 return (
                   <div
                     key={role.id}
-                    className={`roles-slide ${
-                      isFirst ? "" : "absolute top-0 left-0"
-                    }`}
+                    className={`roles-slide ${isFirst ? "" : "absolute top-0 left-0"
+                      }`}
                     style={
                       !isFirst && !reducedMotion
                         ? { position: "absolute", top: 0, left: 0 }
@@ -180,7 +204,7 @@ export function RolesSection() {
                   >
                     {/* Role name */}
                     <div
-                      className="role-text text-black"
+                      className={`role-text transition-colors duration-500 ${textClass}`}
                       style={{
                         fontFamily: "var(--font-fredericka)",
                         fontSize: "clamp(3rem, 6.5vw, 6rem)",
@@ -197,9 +221,9 @@ export function RolesSection() {
                       className="role-desc mt-2 md:mt-3"
                       style={{
                         fontFamily:
-                          "var(--font-sans), ui-sans-serif, system-ui, sans-serif",
+                          "var(--font-fredericka)",
                         fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)",
-                        color: "#6b7280",
+                        color: descColor,
                         letterSpacing: "0.04em",
                         lineHeight: 1.5,
                         opacity: isFirst ? 1 : 0,

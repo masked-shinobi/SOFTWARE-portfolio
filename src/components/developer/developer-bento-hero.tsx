@@ -340,7 +340,7 @@ export function DeveloperBentoHero({
               style={shouldAnimate ? { opacity: 0 } : undefined}
             >
               <Image
-                src="/developer-experience/projects.png"
+                src="/developer-experience/landing page/projects.png"
                 alt="Projects Showcase — Apple Website 3D & Contact"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"

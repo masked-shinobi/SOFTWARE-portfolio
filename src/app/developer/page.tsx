@@ -46,7 +46,7 @@ function DeveloperPageContent() {
         Section 2 — Roles Pinned Scroll-Reveal:
         Pins to viewport and reveals Frontend → Backend → ML engineer roles via scroll
       */}
-      <RolesSection />
+      <RolesSection theme={theme} />
     </main>
   );
 }

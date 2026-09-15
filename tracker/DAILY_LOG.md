@@ -399,10 +399,16 @@
   - Slide 1 ("Frontend developer") at 1030px → Slide 2 ("Backend developer") at 1760px → Slide 3 ("ML engineer") at 3220px.
   - Simulated continuous mouse wheel scrolling and smooth reverse scrolling back to top.
 - Updated `design_tracker.md` with Section 6 architectural guidelines on flex containers, `pinSpacing: true`, and Lenis sync for future pages.
+- Built **Light Screen Inverted Color Mode** for `<RolesSection theme={theme} />`:
+  - When in light mode (`theme === "light"` or system prefers-color-scheme light), inverted background to pure black (`bg-black`), accent bars to white (`bg-white`), "I am" and role title text to white (`text-white`), and description to light gray (`#d1d5db`), delivering high-contrast sectional alternation against the white Section 1.
+  - In dark mode, maintains the classic white backdrop with black accent bars and black text.
+  - Added smooth 500ms CSS transitions (`transition-colors duration-500`) across all elements.
+  - Verified live via CDP light-mode emulation and screenshot capture (`inverted_light_screen_verified.png`).
 
 **Decisions Made:**
 - DEC-019: Roles Section Pinned Architecture — dynamic JSON-driven multi-role slides with fixed "I am" prefix, absolute stacking, and calm GSAP scroll scrubbing.
 - DEC-020: Container Display Rule for Pinned Sections — always use standard block layout (`display: block`) on parent containers wrapping pinned ScrollTrigger sections to prevent GSAP from auto-disabling `pinSpacing`.
+- DEC-021: Inverted Light Screen Sectional Contrast — `<RolesSection />` renders with pure black background and white accents/text when in light mode, ensuring striking visual contrast against the white hero section.
 
 **Blockers / Issues:**
 - Encountered scroll freeze where scrolling stopped at "Frontend developer". Identified that GSAP ScrollTrigger silently disables `pinSpacing` when the parent element is `display: flex`. Rectified by switching `<main>` to block flow, explicitly adding `pinSpacing: true`, and binding `lenis.resize()` to ScrollTrigger's `refresh` event.

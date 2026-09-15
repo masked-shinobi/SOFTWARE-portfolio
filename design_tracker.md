@@ -283,6 +283,14 @@ If a parent container (such as `<main>` or an outer wrapper `<div>`) has `displa
   - Switched `<main>` to standard block layout (`w-full min-h-screen`) and explicitly added `pinSpacing: true` to the ScrollTrigger timeline.
   - Spacer offset height correctly expanded document height from 1760px to 3950px (+2190px pin space).
   - Verified full scroll transitions via automated CDP mouse wheel simulation: Frontend developer → Backend developer → ML engineer, as well as smooth reverse scrolling back to top.
+- **Light Screen Inverted Color Mode**:
+  - Implemented dynamic theme awareness on `<RolesSection theme={theme} />`:
+    - **Light screen (`theme === "light"` / `prefers-color-scheme: light`)**: Background inverted to sleek pure black (`bg-black`), accent bars inverted to white (`bg-white` at top-right ~65% and bottom-left ~55%), "I am" prefix in white, role text in white (`text-white`), and description in crisp light gray (`#d1d5db`).
+    - **Dark screen (`theme === "dark"` / `prefers-color-scheme: dark`)**: Minimalist white background (`bg-white`), black accent bars (`bg-black`), black typography (`text-black`), and gray description (`#6b7280`).
+  - Added smooth CSS color transitions (`transition-colors duration-500`) across the section backdrop, accent bars, and text.
+  - Automatically falls back to system `window.matchMedia("(prefers-color-scheme: light)")` if no `theme` prop is explicitly supplied.
+  - Verified in live browser via CDP emulation and screenshot capture (`inverted_light_screen_verified.png`).
 - **Verification**:
   - `tsc --noEmit` passed with 0 errors.
   - Automated CDP scroll tests verified all slide opacities and transforms at `scrollY` 1030, 1760, and 3220.
+  - Live CDP media emulation verified active `bg-black` and white accents under light mode.

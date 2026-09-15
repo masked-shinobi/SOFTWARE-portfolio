@@ -185,5 +185,30 @@
 3. Automatically render a dedicated `MobileUnsupported` placeholder screen whenever mobile width (< 768px) is detected on mount or window resize.
 4. Provide diagnostic readouts on the mobile screen (detected width, required width, Phase F mobile scope) along with quick contact links (GitHub, LinkedIn, Email) so mobile visitors are informed and connected.  
 **Alternatives Considered:** Letting the desktop layout collapse to a vertical stack on phones (poor user experience for dense code and spatial canvas interactions); checking user agent strings (fragile compared to real viewport dimensions).  
-**Consequences:** Crystal-clear dual choice on desktop, bulletproof automatic mobile detection, zero broken layouts on handheld devices, and transparent communication of the desktop-first workstation intent.
+---
+
+### DEC-019: Roles Section Pinned Scroll-Reveal Architecture
+**Date:** 2026-09-15  
+**Stage:** v2.0 Developer Experience — Roles Section  
+**Context:** The second section of the Developer Experience (`/developer`) requires a pinned scroll-reveal section that steps through three primary identities (Frontend developer, Backend developer, ML engineer).  
+**Decision:** Implement `<RolesSection />` using GSAP ScrollTrigger with `pin: true`, `scrub: true`, and `end: '+=300%'`. Anchor the "I am" prefix statically while transitioning role titles and descriptions via calm translateY and opacity transforms. Stack all 3 slides absolutely in the same position to prevent DOM reflows.  
+**Consequences:** Seamless scroll-driven storytelling with zero layout jumping, fully responsive clamp font sizing, and automated `useGSAP` cleanup.
+
+---
+
+### DEC-020: Container Display Rule for Pinned Sections
+**Date:** 2026-09-15  
+**Stage:** v2.0 Developer Experience — Layout Architecture  
+**Context:** When `<main>` had `display: flex` (`flex flex-col`), GSAP ScrollTrigger automatically disabled `pinSpacing` by design (`_getComputedStyle(pin.parentNode).display === "flex" ? false : _padding`), setting `padding-bottom: 0px` on `.pin-spacer` and freezing the page scroll at the unpinned height.  
+**Decision:** Standardize page wrappers to normal block flow (`<main className="w-full min-h-screen">`) and explicitly define `pinSpacing: true` on all ScrollTrigger pinning timelines.  
+**Consequences:** Guarantees proper DOM expansion and prevents scroll clamping across both native and Lenis smooth scroll environments.
+
+---
+
+### DEC-021: Inverted Light Screen Sectional Contrast
+**Date:** 2026-09-15  
+**Stage:** v2.0 Developer Experience — Color System  
+**Context:** On light screens (`theme === "light"` / `prefers-color-scheme: light`), Section 1 (the Bento Hero) has a crisp white background. Rendering Section 2 with the same white background caused visual monotony and lack of sectional distinction.  
+**Decision:** Automatically invert `<RolesSection />` colors under light mode to pure black (`bg-black`), with high-contrast pure white accent bars (`bg-white`) and white typography (`text-white`). In dark mode, it maintains the clean white background with black accents.  
+**Consequences:** Delivers striking sectional rhythm and alternating high contrast on both light and dark screens with smooth 500ms CSS transitions.
 
