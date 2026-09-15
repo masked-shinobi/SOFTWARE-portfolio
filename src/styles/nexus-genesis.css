@@ -1,0 +1,65 @@
+/* =============================================================================
+   STYLE MODULE: Nexus Genesis (Hero Sectional Style)
+   =============================================================================
+   Aesthetic: Atmospheric, gravitational focal point, high-contrast typography,
+              celestial ambient lighting, dual-spectrum gateway.
+   Tailwind + Scoped Custom Properties
+   ============================================================================= */
+
+.font-iceland {
+  font-family: 'Iceland', cursive, sans-serif;
+}
+
+
+
+:root {
+  /* Nexus Genesis Design Tokens */
+  --hero-bg: #050508;
+  --hero-bg-deep: #020204;
+  --hero-bg-glass: rgba(255, 255, 255, 0.035);
+
+  --hero-glow-cyan: rgba(56, 189, 248, 0.18);
+  --hero-glow-violet: rgba(192, 132, 252, 0.18);
+  --hero-glow-emerald: rgba(52, 211, 153, 0.12);
+
+  --hero-text-headline: #ffffff;
+  --hero-text-sub: #a1a1aa;
+  --hero-text-badge: #e4e4e7;
+
+  --hero-border-portal: rgba(255, 255, 255, 0.08);
+}
+
+/* Scoped Module Utilities */
+.style-nexus-genesis {
+  background-color: var(--hero-bg);
+  color: var(--hero-text-headline);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-headline-gradient {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e2e8f0 40%,
+    #38bdf8 70%,
+    #c084fc 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-portal-card {
+  background: var(--hero-bg-glass);
+  border: 1px solid var(--hero-border-portal);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  position: relative;
+}
+
+.hero-portal-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 30px -5px var(--hero-glow-cyan);
+}

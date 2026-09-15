@@ -340,3 +340,73 @@
   - Stage C1: Developer Layout & Theme (CSS tokens, cursor)
   - Stage T1 / T2: Theming tokens and custom cursor configuration
 
+---
+
+### 2026-09-13 (Day 8) — Modular Sectional Styles Setup & Design Tracker Initialization
+**Stage(s):** Design Architecture & Transition Tracking (Tracked via `design_tracker.md`)
+
+**Work Done:**
+- Formulated and established three distinct sectional style personas:
+  - **Developer Style:** `Terminal Core` (technical, structured, monospace, telemetry-driven, cyan/emerald accents)
+  - **Creative Style:** `Chromatic Canvas` (fluid glassmorphism, iridescent gradients, spatial depth, violet/pink accents)
+  - **Hero Style:** `Nexus Genesis` (atmospheric, gravitational focal point, high-contrast typography, dual-spectrum glow)
+- Created dedicated modular design CSS files:
+  - `src/styles/terminal-core.css`
+  - `src/styles/chromatic-canvas.css`
+  - `src/styles/nexus-genesis.css`
+- Integrated style modules into `src/app/globals.css` with Tailwind CSS v4.
+- Initialized `design_tracker.md` at project root to track intermediate design transitions, custom styles, tokens, and component breakdown independently of fixed phases.
+- Implemented **Dual-Theme Video Boot Loader**:
+  - Replaced the typewriter intro with media-query-driven video intro (`public/port-loader/`).
+  - Added CSS `@media (prefers-color-scheme: dark)` and `@media (prefers-color-scheme: light)` rules to set background to `#000000` or `#ffffff`.
+  - Processed video assets using ffmpeg to strip the initial 1-second static/glitch artifact (`dark-loader-stripped.mp4` and `light-loader-stripped.mp4`).
+  - Centered video relative to viewport width and height with responsive `object-contain`.
+  - Added seamless `onEnded` transition and subtle theme-aware "Skip →" button.
+
+**Decisions Made:**
+- DEC-017: Established modular style architecture separating Developer (`Terminal Core`), Creative (`Chromatic Canvas`), and Hero (`Nexus Genesis`) into scoped Tailwind + CSS modules tracked in `design_tracker.md`.
+- DEC-018: Implemented Dual-Theme Video Boot Loader with automatic browser `@media (prefers-color-scheme)` detection, pure black/white backdrops, and 1-second-trimmed video assets.
+
+**Blockers / Issues:**
+- None. Build passes cleanly (`npm run build`).
+
+**Next Session Plan:**
+- Proceed with user-guided intermediate design transition steps and component creation.
+
+---
+
+### 2026-09-15 (Day 10) — v2.0 Developer Experience (Roles Section & Lenis Smooth Scroll)
+**Stage(s):** Developer Experience (`/developer`) — Roles Pinned Scroll-Reveal Section, Lenis Smooth Scroll & GSAP ScrollTrigger Integration, Fredericka the Great Typography
+
+**Work Done:**
+- Created dynamic roles data in `src/data/roles.json` with 3 roles (Frontend developer, Backend developer, ML engineer) and descriptions.
+- Built `<RolesSection />` (`src/components/developer/RolesSection.tsx`):
+  - GSAP ScrollTrigger-driven pinned section (`pin: true`, `pinSpacing: true`, `scrub: true`, `end: '+=300%'`) that transitions through the 3 role slides.
+  - "I am" prefix stays fixed in position; only role text and description animate with a calm fade + vertical slide (`translateY ±25px`).
+  - Minimalist white backdrop with high-contrast black bar accents (top-right ~65% width, bottom-left ~55% width) matching target visual mockups.
+  - Integrated `prefers-reduced-motion` detection (skips pinning and renders the final slide statically if enabled).
+- Added `Fredericka the Great` Google Font via `next/font/google` in `src/app/layout.tsx` and registered `--font-fredericka` via Tailwind CSS v4 `@theme inline` in `src/app/globals.css`.
+- Built `<ScrollProgressBar />` (`src/components/developer/ScrollProgressBar.tsx`):
+  - 3px top progress bar fixed to viewport, tracking overall page scroll progress via Lenis (`useLenis()`) with GPU-accelerated `scaleX` and `--progress-accent: #ff4d6d`.
+- Integrated Lenis Smooth Scroll with GSAP ScrollTrigger in `src/components/developer/developer-smooth-scroll.tsx`:
+  - Bidirectional sync: `lenis.on('scroll', ScrollTrigger.update)` forwards scroll frames to GSAP.
+  - `ScrollTrigger.addEventListener('refresh', () => lenis.resize())` recalculates Lenis scroll limit when pin spacers expand document height.
+- Diagnosed and resolved the scroll-freeze issue on `/developer`:
+  - Root cause: `<main>` had `flex flex-col`. GSAP ScrollTrigger intentionally disables `pinSpacing` by default when the trigger's parent element is `display: flex`, resulting in `paddingBottom: 0px` on `.pin-spacer` and clamping document height to 1760px.
+  - Fix: Changed `<main>` to standard block layout (`w-full min-h-screen`) and explicitly set `pinSpacing: true` on the ScrollTrigger timeline.
+  - Document height properly expanded to 3950px (+2190px pin spacer).
+- Verified complete scroll flow using live Chrome DevTools Protocol automation:
+  - Slide 1 ("Frontend developer") at 1030px → Slide 2 ("Backend developer") at 1760px → Slide 3 ("ML engineer") at 3220px.
+  - Simulated continuous mouse wheel scrolling and smooth reverse scrolling back to top.
+- Updated `design_tracker.md` with Section 6 architectural guidelines on flex containers, `pinSpacing: true`, and Lenis sync for future pages.
+
+**Decisions Made:**
+- DEC-019: Roles Section Pinned Architecture — dynamic JSON-driven multi-role slides with fixed "I am" prefix, absolute stacking, and calm GSAP scroll scrubbing.
+- DEC-020: Container Display Rule for Pinned Sections — always use standard block layout (`display: block`) on parent containers wrapping pinned ScrollTrigger sections to prevent GSAP from auto-disabling `pinSpacing`.
+
+**Blockers / Issues:**
+- Encountered scroll freeze where scrolling stopped at "Frontend developer". Identified that GSAP ScrollTrigger silently disables `pinSpacing` when the parent element is `display: flex`. Rectified by switching `<main>` to block flow, explicitly adding `pinSpacing: true`, and binding `lenis.resize()` to ScrollTrigger's `refresh` event.
+
+**Next Session Plan:**
+- Continue with Developer Experience section 3 / cards / telemetry components, or transition to Creative experience components as directed by user.
+

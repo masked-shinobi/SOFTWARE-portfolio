@@ -1,102 +1,140 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion } from "motion/react";
 
 // =============================================================================
-// Boot Loader — Full-screen intro animation
+// Boot Loader — Website Loading Screen
 // =============================================================================
-// Shows the portfolio owner's name with a typewriter effect, then fades out.
-// Auto-transitions after the animation completes (~3s).
-// "Skip" button in the corner for returning visitors.
+// - Active ONLY while the website is loading assets / resources.
+// - Loops the stripped loader video centered in screen with dark/light theme background.
+// - Only downloads the single video matching the user's browser theme preference.
+// - Automatically dismisses as soon as the document and assets are fully loaded.
+// - Uses a minimal display floor (~1.2s) to prevent jarring 1-frame flashes on fast cache.
 // =============================================================================
 
 interface BootLoaderProps {
-  name: string;
-  headline: string;
   onComplete: () => void;
+  name?: string;
+  headline?: string;
+  minDisplayTimeMs?: number;
 }
 
-export function BootLoader({ name, headline, onComplete }: BootLoaderProps) {
-  const [displayedText, setDisplayedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-  const [showHeadline, setShowHeadline] = useState(false);
-  const [isGlitching, setIsGlitching] = useState(false);
+export function BootLoader({
+  onComplete,
+  minDisplayTimeMs = 1200,
+}: BootLoaderProps) {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hasCompletedRef = useRef(false);
 
-  const handleSkip = useCallback(() => {
-    onComplete();
+  const handleFinish = useCallback(() => {
+    if (!hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      if (typeof window !== "undefined") {
+        try {
+          sessionStorage.setItem("portfolio_boot_completed", "true");
+        } catch {
+          // Ignore storage errors
+        }
+      }
+      onComplete();
+    }
   }, [onComplete]);
 
   useEffect(() => {
-    // Phase 1: Typewriter effect for the name
-    let charIndex = 0;
-    const typeInterval = setInterval(() => {
-      if (charIndex < name.length) {
-        setDisplayedText(name.slice(0, charIndex + 1));
-        charIndex++;
+    if (typeof window === "undefined") return;
+
+    // 1. Detect browser dark / light mode preference
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
+    setTheme(mediaQuery.matches ? "light" : "dark");
+
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? "light" : "dark");
+    };
+    mediaQuery.addEventListener("change", handleThemeChange);
+
+    // 2. Track website loading completion
+    const startTime = Date.now();
+
+    const finishWhenReady = () => {
+      const elapsed = Date.now() - startTime;
+      const remainingTime = Math.max(0, minDisplayTimeMs - elapsed);
+
+      setTimeout(() => {
+        handleFinish();
+      }, remainingTime);
+    };
+
+    // If document is already complete, check font loading or finish
+    if (document.readyState === "complete") {
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(finishWhenReady).catch(finishWhenReady);
       } else {
-        clearInterval(typeInterval);
-
-        // Phase 2: Brief pause, then show headline
-        setTimeout(() => {
-          setShowHeadline(true);
-          setIsGlitching(true);
-
-          // Phase 3: Hold for a moment, then complete
-          setTimeout(() => {
-            setShowCursor(false);
-            setTimeout(onComplete, 600);
-          }, 1200);
-        }, 400);
+        finishWhenReady();
       }
-    }, 80);
+    } else {
+      // Wait for all assets / window to finish loading
+      const handleLoad = () => {
+        finishWhenReady();
+      };
+      window.addEventListener("load", handleLoad, { once: true });
+    }
 
-    return () => clearInterval(typeInterval);
-  }, [name, onComplete]);
+    // Safety fallback: never hold the user for more than 4 seconds even on slow networks
+    const maxHoldTimer = setTimeout(() => {
+      handleFinish();
+    }, 4000);
+
+    // Keyboard shortcut to skip instantly
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
+        handleFinish();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleThemeChange);
+      window.removeEventListener("keydown", handleKeyDown);
+      clearTimeout(maxHoldTimer);
+    };
+  }, [handleFinish, minDisplayTimeMs]);
+
+  const videoSrc =
+    theme === "light"
+      ? "/port-loader/light-loader-stripped.mp4"
+      : "/port-loader/dark-loader-stripped.mp4";
 
   return (
     <motion.div
       className="boot-loader"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
     >
-      {/* Scanline overlay */}
-      <div className="boot-loader__scanline" />
+      <div className="boot-loader__video-wrapper">
+        <video
+          ref={videoRef}
+          key={videoSrc}
+          className="boot-loader__video"
+          src={videoSrc}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label="Website loading indicator"
+        />
+      </div>
 
-      {/* Name with typewriter */}
-      <motion.h1
-        className={`boot-loader__name ${isGlitching ? "boot-loader__name--glitch" : ""}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      >
-        {displayedText}
-        {showCursor && <span className="boot-loader__cursor" />}
-      </motion.h1>
-
-      {/* Headline */}
-      <AnimatePresence>
-        {showHeadline && (
-          <motion.p
-            className="boot-loader__headline"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            {headline}
-          </motion.p>
-        )}
-      </AnimatePresence>
-
-      {/* Skip button */}
+      {/* Skip button in bottom-right corner */}
       <motion.button
         className="boot-loader__skip"
-        onClick={handleSkip}
+        onClick={handleFinish}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        aria-label="Skip intro animation"
+        transition={{ delay: 0.3 }}
+        aria-label="Skip loader animation"
       >
         Skip →
       </motion.button>

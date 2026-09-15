@@ -1,0 +1,22 @@
+{
+  "roles": [
+    {
+      "id": "frontend",
+      "prefix": "I am",
+      "role": "Frontend developer",
+      "description": "who build User Interfaces with User experience."
+    },
+    {
+      "id": "backend",
+      "prefix": "I am",
+      "role": "Backend developer",
+      "description": "who build scalable systems that could work without lag."
+    },
+    {
+      "id": "ml",
+      "prefix": "I am",
+      "role": "ML engineer",
+      "description": "who trains AI to adapt according to humans."
+    }
+  ]
+}

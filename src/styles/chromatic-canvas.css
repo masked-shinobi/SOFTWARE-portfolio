@@ -1,0 +1,59 @@
+/* =============================================================================
+   STYLE MODULE: Chromatic Canvas (Creative Sectional Style)
+   =============================================================================
+   Aesthetic: Expressive, fluid glass, iridescent gradients, spatial depth.
+   Tailwind + Scoped Custom Properties
+   ============================================================================= */
+
+:root {
+  /* Chromatic Canvas Design Tokens */
+  --creative-bg: #090611;
+  --creative-bg-surface: #130d22;
+  --creative-bg-card: rgba(25, 17, 43, 0.55);
+  --creative-bg-card-hover: rgba(38, 25, 66, 0.75);
+
+  --creative-border: rgba(192, 132, 252, 0.2);
+  --creative-border-active: rgba(244, 114, 182, 0.5);
+  --creative-border-subtle: rgba(255, 255, 255, 0.08);
+
+  --creative-accent-primary: #c084fc;   /* Violet / Lavender */
+  --creative-accent-secondary: #f472b6; /* Hot Pink */
+  --creative-accent-tertiary: #818cf8;  /* Indigo */
+  --creative-accent-glow: rgba(192, 132, 252, 0.25);
+
+  --creative-text-bright: #faf5ff;
+  --creative-text-muted: #c4b5fd;
+  --creative-text-dim: #7c6f9b;
+
+  --creative-radius: 20px;
+}
+
+/* Scoped Module Utilities */
+.style-chromatic-canvas {
+  background-color: var(--creative-bg);
+  color: var(--creative-text-bright);
+}
+
+.creative-card {
+  background: var(--creative-bg-card);
+  border: 1px solid var(--creative-border-subtle);
+  border-radius: var(--creative-radius);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.creative-card:hover {
+  background: var(--creative-bg-card-hover);
+  border-color: var(--creative-border);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 15px 35px -10px var(--creative-accent-glow);
+}
+
+.creative-gradient-text {
+  background: linear-gradient(135deg, var(--creative-accent-primary), var(--creative-accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,82 @@
+/* =============================================================================
+   STYLE MODULE: Terminal Core (Developer Sectional Style)
+   =============================================================================
+   Aesthetic: Technical, structured, monospace-forward, telemetry-driven.
+   Tailwind + Scoped Custom Properties
+   ============================================================================= */
+
+:root {
+  /* Terminal Core Design Tokens */
+  --dev-bg: #07090e;
+  --dev-bg-surface: #0d111a;
+  --dev-bg-card: rgba(13, 17, 26, 0.75);
+  --dev-bg-card-hover: rgba(19, 26, 42, 0.85);
+
+  --dev-border: rgba(56, 189, 248, 0.15);
+  --dev-border-active: rgba(56, 189, 248, 0.5);
+  --dev-border-subtle: rgba(255, 255, 255, 0.07);
+
+  --dev-accent: #38bdf8;         /* Sky / Cyan accent */
+  --dev-accent-glow: rgba(56, 189, 248, 0.2);
+  --dev-accent-emerald: #34d399;  /* Status OK */
+  --dev-accent-amber: #fbbf24;    /* Warning */
+
+  --dev-text-bright: #f1f5f9;
+  --dev-text-muted: #94a3b8;
+  --dev-text-dim: #475569;
+  --dev-text-code: #38bdf8;
+}
+
+/* Light Theme Overrides (Developer) */
+[data-theme="light"] .style-terminal-core {
+  --dev-bg: #f8fafc;
+  --dev-bg-surface: #ffffff;
+  --dev-bg-card: rgba(255, 255, 255, 0.85);
+  --dev-bg-card-hover: rgba(241, 245, 249, 0.95);
+  --dev-border: rgba(14, 165, 233, 0.25);
+  --dev-border-active: rgba(14, 165, 233, 0.6);
+  --dev-border-subtle: rgba(0, 0, 0, 0.08);
+  --dev-accent: #0284c7;
+  --dev-accent-glow: rgba(2, 132, 199, 0.15);
+  --dev-text-bright: #0f172a;
+  --dev-text-muted: #475569;
+  --dev-text-dim: #94a3b8;
+  --dev-text-code: #0369a1;
+}
+
+/* Scoped Module Utilities */
+.style-terminal-core {
+  background-color: var(--dev-bg);
+  color: var(--dev-text-bright);
+}
+
+.terminal-card {
+  background: var(--dev-bg-card);
+  border: 1px solid var(--dev-border-subtle);
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.terminal-card:hover {
+  background: var(--dev-bg-card-hover);
+  border-color: var(--dev-border);
+  box-shadow: 0 0 20px -5px var(--dev-accent-glow);
+}
+
+.terminal-prompt::before {
+  content: "$ ";
+  color: var(--dev-accent);
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+}
+
+.terminal-tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: var(--dev-accent);
+}

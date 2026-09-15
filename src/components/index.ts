@@ -1,2 +1,3 @@
 // Shared UI components across experiences and entry page
-export {};
+export { ChoiceScreen, ChoiceBackgroundCanvas, ChoiceStageFrame } from "./choice-screen";
+
