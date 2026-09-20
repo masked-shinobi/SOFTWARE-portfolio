@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code, Fredericka_the_Great } from "next/font/google";
+import { Inter, Fira_Code, Fredericka_the_Great, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,6 +21,13 @@ const fredericka = Fredericka_the_Great({
   display: "swap",
 });
 
+const outfit = Outfit({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Sanjay Baskar — Portfolio",
   description:
@@ -39,7 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${firaCode.variable} ${fredericka.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${firaCode.variable} ${fredericka.variable} ${outfit.variable}`}
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -48,7 +58,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Iceland&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Iceland&family=Outfit:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>

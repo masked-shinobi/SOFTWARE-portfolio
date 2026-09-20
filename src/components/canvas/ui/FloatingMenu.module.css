@@ -1,0 +1,136 @@
+/* FloatingMenu.module.css
+ * Left-centered floating vertical nav with glassmorphism.
+ * 5 icon buttons: Home, Work, About, Contact, Settings/Admin.
+ * Exactly matches old_portfolio_style.css & target screenshots.
+ */
+
+.menu {
+  position: fixed;
+  left: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+
+  border-radius: 16px;
+
+  /* Glassmorphism */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition: all 0.4s ease;
+}
+
+/* ---- Theme variants ---- */
+.light {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.dark {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(255, 255, 255, 0.04);
+}
+
+/* ---- Icon Buttons ---- */
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.6;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme icon button */
+.light .iconBtn {
+  color: #1D1D1F;
+}
+
+.light .iconBtn:hover,
+.light .iconBtn.active {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+  transform: translateX(4px);
+}
+
+.light .iconBtn:active {
+  transform: translateX(2px) scale(0.96);
+}
+
+/* Dark theme icon button */
+.dark .iconBtn {
+  color: #FFFFFF;
+}
+
+.dark .iconBtn:hover,
+.dark .iconBtn.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+}
+
+.dark .iconBtn:active {
+  transform: translateX(2px) scale(0.96);
+}
+
+/* ---- Tooltip on Hover ---- */
+.iconBtn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.iconBtn:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.light .iconBtn::after {
+  background: rgba(29, 29, 31, 0.88);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.dark .iconBtn::after {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0d0d14;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+  .menu {
+    display: none;
+  }
+}

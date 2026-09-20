@@ -42,8 +42,8 @@ export function DeveloperBentoHero({
     : "border-[2px] border-[#52525b] bg-black/85 shadow-2xl";
 
   const techStackSrc = isLight
-    ? "/developer-experience/tech_stack_light.png"
-    : "/developer-experience/tech_stack_dark.png";
+    ? "/developer-experience/landing page/tech_stack_light.png"
+    : "/developer-experience/landing page/tech_stack_dark.png";
 
   const computeDockedScale = useCallback(() => {
     if (!slotRef.current) return 0.5;
@@ -319,7 +319,7 @@ export function DeveloperBentoHero({
               style={shouldAnimate ? { opacity: 0 } : undefined}
             >
               <Image
-                src="/developer-experience/journey.png"
+                src="/developer-experience/landing page/journey.png"
                 alt="My Journey Artwork"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
